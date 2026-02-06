@@ -21,24 +21,25 @@ export default function ProtectedLayout({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const response = await fetch('/api/auth/profile');
-      if (!response.ok) {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/profile');
+        if (!response.ok) {
+          router.push('/auth');
+          return;
+        }
+        const data = await response.json();
+        setUser(data.user);
+      } catch (error) {
+        console.error('Auth check error:', error);
         router.push('/auth');
-        return;
+      } finally {
+        setLoading(false);
       }
-      const data = await response.json();
-      setUser(data.user);
-    } catch (error) {
-      router.push('/auth');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    checkAuth();
+  }, [router]);
 
   const handleLogout = async () => {
     try {

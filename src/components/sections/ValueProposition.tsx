@@ -31,15 +31,15 @@ export const ValueProposition: React.FC = () => {
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
 
   return (
-    <Section className="relative bg-gradient-to-b from-gold-100 to-gold-50">
+    <Section className="relative bg-gradient-to-b from-[#0D1B2A] via-[#1B365D] to-navy-800">
       <div 
         ref={headerRef}
         className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
-        <h2 className="text-5xl md:text-6xl font-serif font-normal text-navy-900 mb-6">
+        <h2 className="text-5xl md:text-6xl font-serif font-normal text-white mb-6">
           Built on Three Core Principles
         </h2>
-        <p className="text-xl text-navy-600 max-w-2xl mx-auto font-light">
+        <p className="text-xl text-teal-200 max-w-2xl mx-auto font-light">
           Our approach combines strategic thinking with practical execution
         </p>
       </div>
@@ -51,7 +51,7 @@ export const ValueProposition: React.FC = () => {
           return (
             <div
               key={value.title}
-              className={`group relative bg-gold-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gold-200 hover:border-gold-400 hover-lift overflow-hidden scroll-animate ${animatedClasses}`}
+              className={`group relative bg-navy-800/30 backdrop-blur-md rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-teal-200/20 hover:border-gold-500/60 hover-lift overflow-hidden scroll-animate ${animatedClasses}`}
             >
               {/* Gradient background on hover */}
               <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-all duration-500`} />
@@ -64,10 +64,10 @@ export const ValueProposition: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-bold text-navy-900 mb-4">
+                <h3 className="text-2xl font-bold text-white mb-4">
                   {value.title}
                 </h3>
-                <p className="text-navy-600 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed">
                   {value.description}
                 </p>
               </div>

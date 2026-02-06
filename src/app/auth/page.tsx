@@ -419,11 +419,11 @@ export default function AuthPage() {
                     />
                     <span className="text-sm text-navy-600">
                       I agree to the{' '}
-                      <a href="#" className="text-navy-700 font-medium hover:text-navy-900 underline">
+                      <a href="/" className="text-navy-700 font-medium hover:text-navy-900 underline">
                         Terms & Conditions
                       </a>{' '}
                       and{' '}
-                      <a href="#" className="text-navy-700 font-medium hover:text-navy-900 underline">
+                      <a href="/" className="text-navy-700 font-medium hover:text-navy-900 underline">
                         Privacy Policy
                       </a>
                     </span>

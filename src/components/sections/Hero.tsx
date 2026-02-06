@@ -60,27 +60,7 @@ export const Hero: React.FC = () => {
   }, [hasAnimated])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gold-50 via-gold-50/70 to-gold-100">
-      {/* Background Image Layer with Parallax */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{ 
-          transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
-          willChange: 'transform',
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h100v100H0z\' fill=\'none\'/%3E%3Cpath d=\'M50 10L90 90H10z\' fill=\'%23C9A962\' opacity=\'0.1\'/%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'20\' fill=\'%231B365D\' opacity=\'0.1\'/%3E%3C/svg%3E")',
-          backgroundSize: '200px 200px',
-        }}
-      />
-      
-      {/* Overlay Pattern with Different Speed */}
-      <div 
-        className="absolute inset-0 opacity-10"
-        style={{ 
-          transform: `translate3d(0, ${scrollY * -0.2}px, 0)`,
-          willChange: 'transform',
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(201, 169, 98, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(27, 54, 93, 0.3) 0%, transparent 50%)',
-        }}
-      />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#0A1628] via-[#0D1B2A] to-[#1B365D]">
       
       {/* Parallax background layers */}
       <div 
@@ -91,16 +71,16 @@ export const Hero: React.FC = () => {
         }}
       >
         {/* Subtle background gradient with parallax */}
-        <div className="absolute inset-0 opacity-40">
+        <div className="absolute inset-0 opacity-30">
           <div 
-            className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-navy-100/50 via-transparent to-transparent"
+            className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-200/20 via-transparent to-transparent"
             style={{ 
               transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
               willChange: 'transform'
             }}
           />
           <div 
-            className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-gold-300/50 via-transparent to-transparent"
+            className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-gold-500/20 via-transparent to-transparent"
             style={{ 
               transform: `translate3d(0, ${scrollY * 0.4}px, 0)`,
               willChange: 'transform'
@@ -108,24 +88,27 @@ export const Hero: React.FC = () => {
           />
         </div>
         
-        {/* Decorative circles with parallax */}
+        {/* Decorative circles with parallax - teal/blue accents */}
         <div 
-          className="absolute top-20 right-20 w-96 h-96 bg-navy-300/20 rounded-full blur-3xl" 
+          className="absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl" 
           style={{ 
+            background: 'rgba(184, 212, 212, 0.15)',
             transform: `translate3d(0, ${scrollY * 0.6}px, 0)`,
             willChange: 'transform'
           }} 
         />
         <div 
-          className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-gold-300/20 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full blur-3xl"
           style={{ 
+            background: 'rgba(201, 169, 98, 0.12)',
             transform: `translate3d(0, ${scrollY * 0.7}px, 0)`,
             willChange: 'transform'
           }} 
         />
         <div 
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-navy-200/20 rounded-full blur-2xl"
+          className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full blur-2xl"
           style={{ 
+            background: 'rgba(165, 197, 197, 0.18)',
             transform: `translate3d(-50%, calc(-50% + ${scrollY * 0.8}px), 0)`,
             willChange: 'transform'
           }} 
@@ -141,27 +124,27 @@ export const Hero: React.FC = () => {
         }}
       >
         <div className="text-center space-y-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-normal text-navy-900 tracking-tight leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-normal text-white tracking-tight leading-tight">
             Boutique Insurance Brokerage & Strategic Risk Advisory
           </h1>
 
-          <h3 className="text-lg md:text-xl text-navy-700 max-w-3xl mx-auto leading-relaxed font-light">
+          <h3 className="text-lg md:text-xl text-teal-200 max-w-3xl mx-auto leading-relaxed font-light">
             Guided with intention. Built on integrity. Driven by intelligence.
           </h3>
 
-          <p className="text-sm md:text-base text-navy-600 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-sm md:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
             We partner with leaders, investors, and lenders to navigate complex risk across M&A, restructuring, and growth through modern tools, trusted relationships, and strategic market access.
           </p>
         
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
             <Link href="/">
-              <Button size="lg" className="group shadow-xl">
+              <Button size="lg" variant="secondary" className="shadow-xl">
                 Get Started
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link href="#services">
-              <Button size="lg" variant="outline" className="bg-white/80 backdrop-blur-sm border-navy-300 text-navy-900 hover:bg-navy-50 shadow-lg">
+              <Button size="lg" variant="outline" className="!bg-transparent !backdrop-blur-sm !border-teal-200/40 !text-white hover:!bg-teal-200/10 hover:!border-teal-200 shadow-lg">
                 View Services
               </Button>
             </Link>
@@ -175,12 +158,12 @@ export const Hero: React.FC = () => {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-navy-100 hover:border-gold-400/60 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1"
+                className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-teal-200/20 hover:border-gold-500/60 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
               >
-                <div className="text-4xl md:text-5xl font-serif font-normal text-navy-900 mb-2">
+                <div className="text-4xl md:text-5xl font-serif font-normal text-white mb-2">
                   {stat.value}{stat.suffix}
                 </div>
-                <div className="text-navy-600 text-sm font-light tracking-wide">
+                <div className="text-teal-200 text-sm font-light tracking-wide">
                   {stat.label}
                 </div>
               </div>
@@ -189,13 +172,13 @@ export const Hero: React.FC = () => {
           
           {/* Trust badge */}
           <div className="flex items-center justify-center gap-2 pt-8">
-            <span className="text-navy-600 text-sm font-light">Trusted by 120+ businesses worldwide</span>
+            <span className="text-gray-400 text-sm font-light">Trusted by 120+ businesses worldwide</span>
           </div>
         </div>
       </div>
 
       {/* Bottom gradient overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t to-transparent pointer-events-none" style={{ backgroundImage: 'linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent)' }} />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#1B365D]/80 to-transparent pointer-events-none" />
     </section>
   )
 }

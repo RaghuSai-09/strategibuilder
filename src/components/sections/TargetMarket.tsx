@@ -98,15 +98,15 @@ export const TargetMarket: React.FC = () => {
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
 
   return (
-    <Section id="solutions" className="bg-gold-100">
+    <Section id="solutions" className="bg-gradient-to-b from-navy-800 via-[#1B365D] to-[#0D1B2A]">
       <div 
         ref={headerRef}
         className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
-        <h2 className="text-5xl md:text-6xl font-serif font-normal text-navy-900 mb-6">
+        <h2 className="text-5xl md:text-6xl font-serif font-normal text-white mb-6">
           Solutions for Every Stage
         </h2>
-        <p className="text-xl text-navy-600 max-w-3xl mx-auto font-light">
+        <p className="text-xl text-teal-200 max-w-3xl mx-auto font-light">
           Tailored insurance solutions designed for your unique risk profile and business stage
         </p>
       </div>
@@ -120,28 +120,28 @@ export const TargetMarket: React.FC = () => {
               key={segment.title}
               className={containerClass}
             >
-              <Card hover className="flex flex-col h-full">
+              <Card hover className="flex flex-col h-full bg-navy-800/40 backdrop-blur-md border-teal-200/20 hover:border-gold-500/60">
               {/* Icon and title */}
               <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${segment.color} flex items-center justify-center mb-6`}>
                 <Icon className="w-8 h-8 text-white" />
               </div>
 
-              <div className="text-sm font-semibold text-gold-600 mb-2 uppercase tracking-wider">
+              <div className="text-sm font-semibold text-gold-400 mb-2 uppercase tracking-wider">
                 {segment.title}
               </div>
 
-              <h3 className="text-2xl font-bold text-navy-900 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-4">
                 {segment.headline}
               </h3>
 
-              <p className="text-navy-600 leading-relaxed mb-6">
+              <p className="text-gray-300 leading-relaxed mb-6">
                 {segment.description}
               </p>
 
               {/* Features list */}
               <div className="mt-auto space-y-2">
                 {segment.features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-2 text-sm text-navy-700">
+                  <div key={feature} className="flex items-center gap-2 text-sm text-gray-300">
                     <svg className="w-5 h-5 text-gold-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>

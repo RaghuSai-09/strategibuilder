@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import {  useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { 
   Shield, Lock, Globe, Users, TrendingUp, AlertTriangle, 
-  FileText, Plus, CheckCircle, Clock, ArrowRight, 
-  ChevronRight, Sparkles, Calendar, Building2, Mail,
-  Phone, ExternalLink, BarChart3, Target, Zap
+  FileText, Plus, CheckCircle, Clock,
+  ChevronRight, Sparkles,  Mail,
+  Phone, ExternalLink, Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -103,7 +103,6 @@ const insuranceTypes = [
 ];
 
 export default function DashboardPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [applications, setApplications] = useState<Application[]>([]);
   const [drafts, setDrafts] = useState<DraftInfo[]>([]);
@@ -271,7 +270,7 @@ export default function DashboardPage() {
                   <p className="text-sm text-navy-500 mt-1">Your saved draft applications</p>
                 </div>
                 <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">
-                  {drafts.length} Draft{drafts.length !== 1 ? 's' : ''}
+                  {drafts.length} Draft{drafts.length === 1 ? '' : 's'}
                 </span>
               </div>
               
@@ -546,10 +545,10 @@ export default function DashboardPage() {
                     key={insurance.id}
                     href={insurance.available ? `/dashboard/applications/${insurance.id}/new` : '#'}
                     onClick={(e) => {
-                      if (!insurance.available) {
-                        e.preventDefault();
-                      } else {
+                      if (insurance.available) {
                         setShowQuoteModal(false);
+                      } else {
+                        e.preventDefault();
                       }
                     }}
                     className={`relative bg-white rounded-xl p-5 border-2 transition-all ${

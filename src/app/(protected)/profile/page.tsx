@@ -24,37 +24,37 @@ export default function ProfilePage() {
 
   useEffect(() => {
     // TODO: Check authentication status
-    fetchUserProfile();
-  }, []);
+    const fetchUserProfile = async () => {
+      try {
+        // TODO: Implement actual API call
+        const response = await fetch('/api/auth/profile', {
+          headers: {
+            // Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
 
-  const fetchUserProfile = async () => {
-    try {
-      // TODO: Implement actual API call
-      const response = await fetch('/api/auth/profile', {
-        headers: {
-          // Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+        if (!response.ok) {
+          // Not authenticated, redirect to login
+          router.push('/auth');
+          return;
+        }
 
-      if (!response.ok) {
-        // Not authenticated, redirect to login
-        router.push('/auth');
-        return;
+        const data = await response.json();
+        setUser(data.user);
+        setFormData({
+          name: data.user.name,
+          email: data.user.email,
+        });
+      } catch (error) {
+        console.error('Failed to fetch profile:', error);
+        router.push('/login');
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const data = await response.json();
-      setUser(data.user);
-      setFormData({
-        name: data.user.name,
-        email: data.user.email,
-      });
-    } catch (error) {
-      console.error('Failed to fetch profile:', error);
-      // router.push('/login');
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchUserProfile();
+  }, [router]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,7 +120,7 @@ export default function ProfilePage() {
         {/* Profile Content */}
         <div className="bg-white shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            {!editing ? (
+            {editing ? (
               <div className="space-y-6">
                 {/* Avatar Section */}
                 <div className="flex items-center space-x-6">

@@ -10,11 +10,11 @@ export const AuthBanner: React.FC = () => {
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation()
 
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gold-100">
+    <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-navy-900">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-300 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-navy-300 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-teal-200/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
@@ -23,16 +23,16 @@ export const AuthBanner: React.FC = () => {
           className={`text-center scroll-animate ${contentVisible ? 'visible animate-fade-in-up' : ''}`}
         >
           <div className="mb-6">
-            <span className="inline-flex items-center px-4 py-2 rounded-full bg-gold-100 border border-gold-300/50 text-sm font-semibold text-gold-900">
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-gold-500/20 border border-gold-500/30 text-sm font-semibold text-gold-200">
               Start Your Journey Today
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-serif font-normal text-navy-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-normal text-white mb-6">
             Ready to Protect Your Business?
           </h2>
           
-          <p className="text-lg md:text-xl text-navy-600 max-w-3xl mx-auto mb-10 font-light">
+          <p className="text-lg md:text-xl text-teal-200 max-w-3xl mx-auto mb-10 font-light">
             Create your account today and get access to  
             personalized dashboards, and expert resources to accelerate your success.
           </p>
@@ -57,12 +57,12 @@ export const AuthBanner: React.FC = () => {
             ].map((feature) => (
               <div
                 key={feature.title}
-                className="bg-gold-50/80 backdrop-blur-sm rounded-xl p-6 border border-gold-200 hover:border-gold-400 transition-all duration-300 hover:shadow-lg"
+                className="bg-navy-800/60 backdrop-blur-sm rounded-xl p-6 border border-teal-200/20 hover:border-gold-500/60 transition-all duration-300 hover:shadow-lg"
               >
-                <h3 className="text-lg font-semibold text-navy-900 mb-2">
+                <h3 className="text-lg font-semibold text-white mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-navy-600 text-sm">
+                <p className="text-gray-300 text-sm">
                   {feature.description}
                 </p>
               </div>

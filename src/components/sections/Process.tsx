@@ -54,10 +54,10 @@ export const Process: React.FC = () => {
         ref={headerRef}
         className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
-        <h2 className="text-5xl md:text-6xl font-serif font-normal mb-6">
+        <h2 className="text-5xl md:text-6xl font-serif font-normal text-white mb-6">
           Our Proven Process
         </h2>
-        <p className="text-xl text-navy-200 max-w-3xl mx-auto font-light">
+        <p className="text-xl text-teal-200 max-w-3xl mx-auto font-light">
           A systematic approach built on deep expertise, thoughtful positioning, and long-standing market relationships
         </p>
       </div>
@@ -79,17 +79,17 @@ export const Process: React.FC = () => {
                   {index + 1}
                 </div>
 
-                <div className="bg-navy-800/50 backdrop-blur-sm rounded-2xl p-6 border border-navy-700 hover:border-gold-500/50 transition-all duration-500 hover:transform hover:scale-110 hover:-translate-y-2 h-full group glass-effect hover-lift">
+                <div className="bg-navy-800/50 backdrop-blur-sm rounded-2xl p-6 border border-teal-200/20 hover:border-gold-500/50 transition-all duration-500 hover:transform hover:scale-110 hover:-translate-y-2 h-full group glass-effect hover-lift">
                   {/* Icon */}
                   <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 animate-glow-pulse`}>
                     <Icon className="w-8 h-8 text-white group-hover:animate-bounce-slow" />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold mb-3">
+                  <h3 className="text-xl font-bold text-white mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-navy-300 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </div>
