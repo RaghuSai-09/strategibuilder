@@ -65,7 +65,6 @@ export const WhoWeAre: React.FC = () => {
   const { ref: storyRef, isVisible: storyVisible } = useScrollAnimation({ triggerOnce: true })
   const { ref: founderRef, isVisible: founderVisible } = useScrollAnimation({ triggerOnce: true })
   const { ref: teamRef, isVisible: teamVisible } = useScrollAnimation({ triggerOnce: true })
-  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation({ triggerOnce: true })
   const { ref: whyUsRef, isVisible: whyUsVisible } = useScrollAnimation({ triggerOnce: true })
 
   return (

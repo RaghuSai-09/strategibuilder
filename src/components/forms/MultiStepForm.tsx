@@ -58,7 +58,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
     
     if (!step.fields) return stepErrors;
 
-    step.fields.forEach((field: any) => {
+    for (const field of step.fields) {
       if (field.required) {
         const value = getNestedValue(formData, field.name);
         
@@ -82,7 +82,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
         
         // Phone validation
         if (field.type === 'tel' && value) {
-          const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+          const phoneRegex = /^[\d\s\-+()]{10,}$/;
           if (!phoneRegex.test(value)) {
             stepErrors.push({
               field: field.name,
@@ -107,7 +107,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
           }
         }
       }
-    });
+    }
     
     return stepErrors;
   }, [formData, steps]);
@@ -120,7 +120,9 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
       setErrors(stepErrors);
       // Mark all fields as touched
       const newTouched = new Set(touched);
-      stepErrors.forEach(err => newTouched.add(err.field));
+      for (const err of stepErrors) {
+        newTouched.add(err.field);
+      }
       setTouched(newTouched);
       return;
     }
@@ -140,7 +142,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
     }
   };
 
-  const handleSave = async () => {
+  const handleSave = useCallback(async () => {
     if (!onSave) return;
     
     setSaving(true);
@@ -157,7 +159,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
     } finally {
       setSaving(false);
     }
-  };
+  }, [formData, currentStep, onSave]);
 
   const handleSubmit = async () => {
     // Validate all steps before submitting
@@ -185,13 +187,13 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
     setFormData((prev: any) => {
       // Deep merge the data
       const merged = { ...prev };
-      Object.keys(data).forEach(key => {
+      for (const key of Object.keys(data)) {
         if (typeof data[key] === 'object' && data[key] !== null && !Array.isArray(data[key])) {
-          merged[key] = { ...(prev[key] || {}), ...data[key] };
+          merged[key] = { ...prev[key], ...data[key] };
         } else {
           merged[key] = data[key];
         }
-      });
+      }
       return merged;
     });
   }, []);
@@ -214,14 +216,25 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
     }, 30000);
     
     return () => clearInterval(autoSaveInterval);
-  }, [formData, onSave]);
+  }, [formData, onSave, handleSave]);
 
   return (
     <div className="max-w-4xl mx-auto">
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4 overflow-x-auto pb-2">
-          {steps.map((step, index) => (
+          {steps.map((step, index) => {
+            let stepButtonClass: string;
+            
+            if (index < currentStep) {
+              stepButtonClass = 'bg-emerald-500 text-white cursor-pointer hover:bg-emerald-600';
+            } else if (index === currentStep) {
+              stepButtonClass = 'bg-gold-500 text-white ring-4 ring-gold-200';
+            } else {
+              stepButtonClass = 'bg-navy-100 text-navy-400 cursor-not-allowed';
+            }
+            
+            return (
             <React.Fragment key={step.id}>
               <div className="flex flex-col items-center flex-shrink-0" style={{ minWidth: '60px' }}>
                 <button
@@ -232,13 +245,7 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
                       setErrors([]);
                     }
                   }}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all duration-300 ${
-                    index < currentStep
-                      ? 'bg-emerald-500 text-white cursor-pointer hover:bg-emerald-600'
-                      : index === currentStep
-                      ? 'bg-gold-500 text-white ring-4 ring-gold-200'
-                      : 'bg-navy-100 text-navy-400 cursor-not-allowed'
-                  }`}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all duration-300 ${stepButtonClass}`}
                   disabled={index > currentStep}
                 >
                   {index < currentStep ? (
@@ -266,7 +273,8 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({
                 />
               )}
             </React.Fragment>
-          ))}
+          );
+          })}
         </div>
 
         {/* Step Description */}

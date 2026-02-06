@@ -227,7 +227,7 @@ export default function NewApplicationPage() {
         <div>
           <p className="text-sm text-blue-800">
             <strong>Need help?</strong> Your progress is automatically saved every 30 seconds. 
-            You can also click "Save Draft" at any time to save your progress and return later.
+            You can also click &ldquo;Save Draft&rdquo; at any time to save your progress and return later.
             Fields marked with <span className="text-red-500">*</span> are required.
           </p>
         </div>

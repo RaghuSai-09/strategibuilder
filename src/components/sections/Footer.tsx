@@ -51,7 +51,7 @@ export const Footer: React.FC = () => {
                 />
               </div>
             </div>
-            <p className="text-navy-200 mb-6 leading-relaxed">
+            <p className="text-teal-200 mb-6 leading-relaxed">
               Boutique insurance brokerage specializing in complex placements through deep market relationships, expertise, and innovative solutions driven by intention, integrity, and intelligence.
             </p>
             <div className="flex gap-4">
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-navy-800 text-navy-200 flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors"
+                    className="w-10 h-10 rounded-lg bg-navy-800 text-teal-200 flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors"
                     aria-label={social.label}
                   >
                     <Icon className="w-5 h-5" />
@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-navy-200 hover:text-gold-400 transition-colors group relative">
+                  <Link href={link.href} className="text-teal-200 hover:text-gold-400 transition-colors group relative">
                     {link.label}
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
                   </Link>
@@ -93,7 +93,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-navy-200 hover:text-gold-400 transition-colors">
+                  <Link href={link.href} className="text-teal-200 hover:text-gold-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -106,7 +106,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-navy-200 hover:text-gold-400 transition-colors">
+                  <Link href={link.href} className="text-teal-200 hover:text-gold-400 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -116,19 +116,19 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-navy-800">
+        <div className="pt-8 border-t border-teal-200/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-navy-300">
+            <p className="text-sm text-teal-200/70">
               © {new Date().getFullYear()} Strategi Builder LLC. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
-              <Link href="#privacy" className="text-navy-300 hover:text-gold-400 transition-colors">
+              <Link href="#privacy" className="text-teal-200/70 hover:text-gold-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="#terms" className="text-navy-300 hover:text-gold-400 transition-colors">
+              <Link href="#terms" className="text-teal-200/70 hover:text-gold-400 transition-colors">
                 Terms of Service
               </Link>
-              <Link href="#cookies" className="text-navy-300 hover:text-gold-400 transition-colors">
+              <Link href="#cookies" className="text-teal-200/70 hover:text-gold-400 transition-colors">
                 Cookie Policy
               </Link>
             </div>
