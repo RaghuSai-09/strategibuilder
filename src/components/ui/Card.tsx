@@ -18,9 +18,7 @@ export const Card: React.FC<CardProps> = ({
     <div
       className={cn(
         'rounded-2xl p-8 transition-all duration-300 relative overflow-hidden',
-        gradient 
-          ? 'bg-gold-50 border border-gold-200' 
-          : 'bg-gold-50 border border-gold-200',
+        'bg-gold-50 border border-gold-200',
         hover && 'hover:shadow-xl hover:scale-[1.02] hover:border-gold-400 hover:-translate-y-1 cursor-pointer',
         className
       )}

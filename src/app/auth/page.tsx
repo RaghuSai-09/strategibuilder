@@ -206,7 +206,7 @@ export default function AuthPage() {
                     setError('');
                   }}
                   className={`relative z-10 px-8 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 ${
-                    !isLogin
+                    isLogin === false
                       ? 'text-white'
                       : 'text-navy-600 hover:text-navy-900'
                   }`}
@@ -301,9 +301,9 @@ export default function AuthPage() {
                     />
                     <span className="text-sm text-navy-600">Remember me</span>
                   </label>
-                  <a href="#" className="text-sm font-medium text-navy-700 hover:text-navy-900">
+                  <button type="button" className="text-sm font-medium text-navy-700 hover:text-navy-900 cursor-pointer">
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
 
                 {/* Submit Button */}

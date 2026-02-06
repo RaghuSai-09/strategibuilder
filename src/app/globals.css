@@ -8,12 +8,11 @@
     --foreground: 210 40% 11%;
     --navy-primary: #1B365D;
     --navy-dark: #0D1B2A;
+    --navy-200: #bcccdc;
+    --navy-700: #334e68;
+    --navy-900: #0D1B2A;
     --gold-primary: #C9A962;
     --gold-light: #e8d9a8;
-  }
-
-  * {
-    @apply border-navy-200;
   }
   
   body {
