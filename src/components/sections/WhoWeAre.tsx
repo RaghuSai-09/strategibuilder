@@ -236,7 +236,7 @@ export const WhoWeAre: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
-                    <span>International Women's Day Innovation Award (2023)</span>
+                    <span>International Women&apos;s Day Innovation Award (2023)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
@@ -280,7 +280,7 @@ export const WhoWeAre: React.FC = () => {
                   Beyond brokerage, Marianne is the founder of <Link href="https://kontaktsource.com" className="text-navy-800 underline font-semibold" target="_blank" rel="noopener noreferrer">Kontaktsource</Link>, a global community facilitating deal flow between private equity firms and family offices. She is also an executive coach tailored to high performers, focusing on mindset, leadership, and strategic growth.
                 </p>
                 <p>
-                  Marianne holds master's degrees from Macquarie University and Queensland University of Technology, along with business degrees from Washington State University and BI Norwegian Business School.
+                  Marianne holds master&apos;s degrees from Macquarie University and Queensland University of Technology, along with business degrees from Washington State University and BI Norwegian Business School.
                 </p>
               </div>
 
