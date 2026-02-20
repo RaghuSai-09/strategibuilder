@@ -1,6 +1,5 @@
 # StrategiBuilder
 
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/RaghuSai-09/strategibuilder)
 
 StrategiBuilder is a comprehensive web platform for a boutique insurance brokerage. It features a client-facing portal with a secure dashboard, a multi-step insurance application system, and an innovative ACORD form processor. The application is built with Next.js 14, TypeScript, and Tailwind CSS.
 
