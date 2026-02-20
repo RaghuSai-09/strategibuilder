@@ -1,11 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Shared utility to extract token from request
+function extractToken(request: NextRequest): string | null {
+  // Try cookie first
+  const cookieToken = request.cookies.get('token')?.value;
+  if (cookieToken) {
+    return cookieToken;
+  }
+
+  // Check Authorization header with proper Bearer validation
+  const authHeader = request.headers.get('authorization');
+  if (authHeader?.startsWith('Bearer ')) {
+    return authHeader.replace('Bearer ', '');
+  }
+
+  return null;
+}
+
 // GET - Fetch user profile
 export async function GET(request: NextRequest) {
   try {
     // Get token from cookie or Authorization header
-    const token = request.cookies.get('token')?.value || 
-                  request.headers.get('authorization')?.replace('Bearer ', '');
+    const token = extractToken(request);
 
     if (!token) {
       return NextResponse.json(
@@ -47,8 +63,7 @@ export async function GET(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     // Get token from cookie or Authorization header
-    const token = request.cookies.get('token')?.value || 
-                  request.headers.get('authorization')?.replace('Bearer ', '');
+    const token = extractToken(request);
 
     if (!token) {
       return NextResponse.json(

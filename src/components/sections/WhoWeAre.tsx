@@ -39,7 +39,7 @@ const team = [
   {
     name: 'Mamanth ',
     role: 'Web Designer',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
     bio: 'Creative web designer with a keen eye for aesthetics and user-centered design principles.',
     linkedin: 'https://www.linkedin.com/in/mamanth-kondapalli/',
   },
@@ -77,11 +77,11 @@ export const WhoWeAre: React.FC = () => {
           <div className="absolute bottom-20 left-20 w-[500px] h-[500px] bg-navy-300/20 rounded-full blur-3xl" />
         </div>
 
-        <div 
+        <div
           ref={heroRef}
           className={`relative z-10 max-w-4xl mx-auto text-center scroll-animate ${heroVisible ? 'visible animate-fade-in-up' : ''}`}
         >
-          
+
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-normal text-navy-900 mb-6">
             Who We Are
           </h1>
@@ -94,7 +94,7 @@ export const WhoWeAre: React.FC = () => {
       {/* Company Overview */}
       <Section className="bg-gold-100">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div 
+          <div
             ref={storyRef}
             className={`scroll-animate ${storyVisible ? 'visible animate-slide-in-left' : ''}`}
           >
@@ -185,7 +185,7 @@ export const WhoWeAre: React.FC = () => {
 
       {/* Founder Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gold-50">
-        <div 
+        <div
           ref={founderRef}
           className="max-w-7xl mx-auto"
         >
@@ -205,7 +205,7 @@ export const WhoWeAre: React.FC = () => {
                 {/* Decorative elements */}
                 <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gold-200/30 rounded-full blur-3xl -z-10" />
                 <div className="absolute -top-6 -left-6 w-48 h-48 bg-navy-200/30 rounded-full blur-3xl -z-10" />
-                
+
                 <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl ring-4 ring-navy-100">
                   <Image
                     src="/Founder.png"
@@ -223,66 +223,26 @@ export const WhoWeAre: React.FC = () => {
                   <div className="p-2 bg-gradient-to-br from-gold-500 to-gold-600 rounded-lg">
                     <Award className="w-5 h-5 text-white" />
                   </div>
-                  <h4 className="text-lg font-semibold text-navy-900">Professional Background</h4>
+                  <h4 className="text-lg font-semibold text-navy-900">Key Credentials</h4>
                 </div>
                 <ul className="space-y-3 text-sm text-navy-700">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
-                    <span>20+ years insurance industry experience</span>
+                    <span>CPCU (Chartered Property Casualty Underwriter)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
-                    <span>Expertise in M&A transactions & complex placements</span>
+                    <span>AIS (Associate in Insurance Services)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
-                    <span>Founder of Kontaktsource M&A community</span>
+                    <span>International Women's Day Innovation Award (2023)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold-600 mt-1.5 flex-shrink-0"></div>
-                    <span>Leadership & coaching background</span>
+                    <span>Turnaround Award - Professional Service of the Year</span>
                   </li>
                 </ul>
-              </div>
-
-              {/* Key Expertise Card */}
-              <div className="bg-gradient-to-br from-navy-50 to-gold-50/50 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gold-200/50">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-gradient-to-br from-navy-800 to-navy-900 rounded-lg">
-                    <Lightbulb className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="text-lg font-semibold text-navy-900">Key Expertise</h4>
-                </div>
-                <div className="space-y-3 text-sm text-navy-700">
-                  <div className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-navy-700 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-navy-900">Complex Risk Management</p>
-                      <p className="text-xs text-navy-600">Specialized in difficult-to-place coverage</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <TrendingUp className="w-4 h-4 text-navy-700 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-navy-900">M&A Transaction Support</p>
-                      <p className="text-xs text-navy-600">Pre and post-transaction insurance</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Users className="w-4 h-4 text-navy-700 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-navy-900">Relationship Building</p>
-                      <p className="text-xs text-navy-600">Deep carrier and wholesale partnerships</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Globe className="w-4 h-4 text-navy-700 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-navy-900">Multi-Market Access</p>
-                      <p className="text-xs text-navy-600">NY, CA, FL coverage expertise</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -290,13 +250,13 @@ export const WhoWeAre: React.FC = () => {
             <div>
               <div className="mb-6">
                 <h3 className="text-4xl md:text-5xl font-serif font-normal text-navy-900 mb-3">
-                  Marianne Halvorsen
+                  Marianne Halvorsen, CPCU, AIS
                 </h3>
                 <p className="text-2xl text-gold-700 font-semibold mb-2">
-                  Founder & Chief Strategist
+                  President, Senior Broker
                 </p>
                 <p className="text-lg text-navy-600 italic mb-4">
-                  Insurance Broker | Strategic Planning Expert
+                  Business Development Executive | Strategic Partnerships | Executive Coach
                 </p>
                 <a
                   href="https://linkedin.com/in/halvorsen/"
@@ -311,57 +271,55 @@ export const WhoWeAre: React.FC = () => {
 
               <div className="space-y-4 text-navy-700 leading-relaxed text-lg mb-8">
                 <p>
-                  Marianne Halvorsen has over 20 years of experience in the insurance industry, working with large national and global brokerage firms across New York, California, and Florida. 
-                  Her work has focused on M&A transactions, helping companies protect their leadership, meet lender and investor requirements, and structure the right coverage at the right time, particularly in situations where insurance is complex or difficult to place.
+                  Marianne Halvorsen brings over 20 years of success driving revenue and building trusted relationships across insurance, finance, and professional services. As the President of Strategi Builder, she specializes in M&A, D&O, casualty, and complex risk solutions for private equity, high-growth, and restructuring-driven companies.
                 </p>
                 <p>
-                  Throughout her career, Marianne has built deep, trusted relationships across insurance carriers, wholesale markets, and key market participants. These relationships are central to her ability to navigate the market thoughtfully and advocate effectively on behalf of clients.
+                  Prior to founding Strategi Builder, Marianne held senior leadership roles at major firms including Risk Strategies, Baldwin Risk Partners, Aon, Lockton, and Willis Towers Watson. She has a proven track record of originating and leading millions in new client revenue, structuring risk solutions for Fortune 500 companies, and serving as a strategic partner to private equity clients.
                 </p>
                 <p>
-                  She is also the founder of <Link href="https://kontaktsource.com" className="text-navy-800 underline"  target="_blank" rel="noopener noreferrer">Kontaktsource</Link>, a strategic M&A membership community connecting private equity, lenders, founders, and advisors, which complements her work by fostering strong, long-term relationships across the deal ecosystem.
+                  Beyond brokerage, Marianne is the founder of <Link href="https://kontaktsource.com" className="text-navy-800 underline font-semibold" target="_blank" rel="noopener noreferrer">Kontaktsource</Link>, a global community facilitating deal flow between private equity firms and family offices. She is also an executive coach tailored to high performers, focusing on mindset, leadership, and strategic growth.
                 </p>
                 <p>
-                  Marianne also brings a background in leadership and coaching, which informs her people-centered approach to business.
-                  Her focus is simple: <span className="font-semibold text-navy-900 bg-gold-100/60 px-3 py-1 rounded-md">protect the people, strengthen the business, and connect the right partners</span>.
+                  Marianne holds master's degrees from Macquarie University and Queensland University of Technology, along with business degrees from Washington State University and BI Norwegian Business School.
                 </p>
               </div>
 
-              {/* Credentials/Highlights */}
+              {/* High-level Expertise */}
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
                 <div className="bg-gold-50/80 rounded-lg p-4 border border-gold-200/50">
                   <div className="flex items-center gap-2 mb-2">
-                    <Award className="w-5 h-5 text-gold-700" />
-                    <span className="font-semibold text-navy-900">Experience</span>
+                    <TrendingUp className="w-5 h-5 text-gold-700" />
+                    <span className="font-semibold text-navy-900">M&A Expert</span>
                   </div>
-                  <p className="text-sm text-navy-700">20 years in strategic planning & insurance</p>
+                  <p className="text-sm text-navy-700">Specializing in Due Diligence & RWI</p>
                 </div>
                 <div className="bg-navy-50/80 rounded-lg p-4 border border-navy-200/50">
                   <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-5 h-5 text-navy-700" />
-                    <span className="font-semibold text-navy-900">Clients</span>
+                    <Shield className="w-5 h-5 text-navy-700" />
+                    <span className="font-semibold text-navy-900">Complex Risk</span>
                   </div>
-                  <p className="text-sm text-navy-700">500+ businesses transformed</p>
+                  <p className="text-sm text-navy-700">D&O, Cyber, P&C Solutions</p>
                 </div>
                 <div className="bg-navy-50/80 rounded-lg p-4 border border-navy-200/50">
                   <div className="flex items-center gap-2 mb-2">
                     <Globe className="w-5 h-5 text-navy-700" />
-                    <span className="font-semibold text-navy-900">Industries</span>
+                    <span className="font-semibold text-navy-900">Global Reach</span>
                   </div>
-                  <p className="text-sm text-navy-700">50+ sectors served</p>
+                  <p className="text-sm text-navy-700">International Program Experience</p>
                 </div>
                 <div className="bg-gold-50/80 rounded-lg p-4 border border-gold-200/50">
                   <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-5 h-5 text-gold-700" />
-                    <span className="font-semibold text-navy-900">Success Rate</span>
+                    <Users className="w-5 h-5 text-gold-700" />
+                    <span className="font-semibold text-navy-900">Connector</span>
                   </div>
-                  <p className="text-sm text-navy-700">More Than 95% </p>
+                  <p className="text-sm text-navy-700">Founder of Kontaktsource</p>
                 </div>
               </div>
 
               {/* Quote */}
               <div className="pl-6 border-l-4 border-navy-800">
                 <p className="text-lg italic text-navy-700 mb-2">
-                  &quot;Insurance placement is about more than policies—it&apos;s about protecting businesses, building relationships, and finding solutions where others see obstacles.&quot;
+                  &quot;I believe in protecting people, strengthening businesses, and connecting the right partners to drive transformational growth.&quot;
                 </p>
                 <p className="text-sm font-semibold text-navy-900">— Marianne Halvorsen</p>
               </div>
@@ -372,7 +330,7 @@ export const WhoWeAre: React.FC = () => {
 
       {/* Our Values */}
       <Section className="bg-gold-100">
-        <div 
+        <div
           ref={valuesRef}
           className={`text-center mb-16 scroll-animate ${valuesVisible ? 'visible animate-fade-in-up' : ''}`}
         >
@@ -411,7 +369,7 @@ export const WhoWeAre: React.FC = () => {
 
       {/* Our Team */}
       <Section className="bg-navy-50">
-        <div 
+        <div
           ref={teamRef}
           className={`text-center mb-16 scroll-animate ${teamVisible ? 'visible animate-fade-in-up' : ''}`}
         >
@@ -464,7 +422,7 @@ export const WhoWeAre: React.FC = () => {
 
       {/* Why Choose Us */}
       <Section className="bg-gold-50">
-        <div 
+        <div
           ref={whyUsRef}
           className="max-w-6xl mx-auto"
         >

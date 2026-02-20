@@ -12,7 +12,7 @@ const publicRoutes = ['/', '/who-we-are'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
+
   // Get token from cookies or headers
   // TODO: Replace with your actual token verification logic
   const token = request.cookies.get('token')?.value;
@@ -20,10 +20,10 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = !!(token || authHeader);
 
   // Check if the current route is protected
-  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
-  
+  const isProtectedRoute = protectedRoutes.some(route => pathname === route || pathname.startsWith(route + '/'));
+
   // Check if the current route is an auth route
-  const isAuthRoute = authRoutes.some(route => pathname.startsWith(route));
+  const isAuthRoute = authRoutes.some(route => pathname === route || pathname.startsWith(route + '/'));
 
   // Redirect to login if trying to access protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {

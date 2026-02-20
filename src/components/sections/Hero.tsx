@@ -149,31 +149,6 @@ export const Hero: React.FC = () => {
               </Button>
             </Link>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-16 max-w-4xl mx-auto">
-            {[
-              { value: stats.strategies, label: 'Strategies Delivered', suffix: '+' },
-              { value: stats.success, label: 'Success Rate', suffix: '%' },
-              { value: stats.industries, label: 'Industries', suffix: '+' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-teal-200/20 hover:border-gold-500/60 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
-              >
-                <div className="text-4xl md:text-5xl font-serif font-normal text-white mb-2">
-                  {stat.value}{stat.suffix}
-                </div>
-                <div className="text-teal-200 text-sm font-light tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Trust badge */}
-          <div className="flex items-center justify-center gap-2 pt-8">
-            <span className="text-gray-400 text-sm font-light">Trusted by 120+ businesses worldwide</span>
-          </div>
         </div>
       </div>
 

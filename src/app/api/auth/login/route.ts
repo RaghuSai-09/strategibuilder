@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     // - Query database for user with email
     // - Verify password hash
     // - Generate JWT token or session
-    
+
     // Mock implementation for now
     if (email === 'demo@example.com' && password === 'password123') {
       const user = {

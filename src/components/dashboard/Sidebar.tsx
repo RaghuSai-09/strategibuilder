@@ -20,6 +20,7 @@ import {
   X,
   Bell,
   Sparkles,
+  FileDown,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -101,6 +102,12 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
       icon: FileText,
       active: pathname?.startsWith('/dashboard/applications'),
       badge: applications.length || undefined,
+    },
+    {
+      name: 'Insurance Forms',
+      href: '/dashboard/forms',
+      icon: FileDown,
+      active: pathname?.startsWith('/dashboard/forms'),
     },
     {
       name: 'Profile',
@@ -199,20 +206,18 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                  item.active
-                    ? 'bg-navy-900 text-white'
-                    : 'text-navy-600 hover:bg-navy-50 hover:text-navy-900'
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${item.active
+                  ? 'bg-navy-900 text-white'
+                  : 'text-navy-600 hover:bg-navy-50 hover:text-navy-900'
+                  }`}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
                 {!isCollapsed && (
                   <>
                     <span className="flex-1 font-medium">{item.name}</span>
                     {item.badge && (
-                      <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
-                        item.active ? 'bg-white/20 text-white' : 'bg-navy-100 text-navy-600'
-                      }`}>
+                      <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${item.active ? 'bg-white/20 text-white' : 'bg-navy-100 text-navy-600'
+                        }`}>
                         {item.badge}
                       </span>
                     )}
@@ -325,9 +330,8 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
 
       {/* Mobile Sidebar */}
       <aside
-        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-80 bg-white transform transition-transform duration-300 ${
-          isMobileOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-80 bg-white transform transition-transform duration-300 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         <button
           onClick={() => setIsMobileOpen(false)}
@@ -340,9 +344,8 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
 
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col bg-white border-r border-navy-100 transition-all duration-300 ${
-          isCollapsed ? 'w-20' : 'w-72'
-        }`}
+        className={`hidden lg:flex flex-col bg-white border-r border-navy-100 transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'
+          }`}
       >
         <SidebarContent />
       </aside>

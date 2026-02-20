@@ -34,7 +34,7 @@ interface FormStepComponentProps {
 
 const FormStepComponent: React.FC<FormStepComponentProps> = ({
   formData = {},
-  updateFormData = () => {},
+  updateFormData = () => { },
   getFieldError,
   markFieldTouched,
   fields,
@@ -74,7 +74,7 @@ export default function NewApplicationPage() {
   const router = useRouter();
   const params = useParams();
   const insuranceType = params.type as string;
-  
+
   const [loading, setLoading] = useState(true);
   const [config, setConfig] = useState<any>(null);
   const [steps, setSteps] = useState<any[]>([]);
@@ -106,11 +106,12 @@ export default function NewApplicationPage() {
         }
       } catch (error) {
         console.error('Error loading draft:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     loadDraft();
-    setLoading(false);
   }, [insuranceType, router]);
 
   const handleSubmit = async (formData: any) => {
@@ -201,7 +202,7 @@ export default function NewApplicationPage() {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
         </Link>
-        
+
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-3xl font-bold text-navy-900 mb-2">
@@ -211,7 +212,7 @@ export default function NewApplicationPage() {
               {config.description}
             </p>
           </div>
-          
+
           {savedDraftId && (
             <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg text-sm">
               <Save className="w-4 h-4" />
@@ -226,7 +227,7 @@ export default function NewApplicationPage() {
         <HelpCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
         <div>
           <p className="text-sm text-blue-800">
-            <strong>Need help?</strong> Your progress is automatically saved every 30 seconds. 
+            <strong>Need help?</strong> Your progress is automatically saved every 30 seconds.
             You can also click &ldquo;Save Draft&rdquo; at any time to save your progress and return later.
             Fields marked with <span className="text-red-500">*</span> are required.
           </p>
@@ -235,6 +236,7 @@ export default function NewApplicationPage() {
 
       {/* Multi-Step Form */}
       <MultiStepForm
+        key={savedDraftId || 'new'}
         steps={steps}
         onSubmit={handleSubmit}
         onSave={handleSave}

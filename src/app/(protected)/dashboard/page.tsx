@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {  useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  Shield, Lock, Globe, Users, TrendingUp, AlertTriangle, 
+import {
+  Shield, Lock, Globe, Users, TrendingUp, AlertTriangle,
   FileText, Plus, CheckCircle, Clock,
-  ChevronRight, Sparkles,  Mail,
-  Phone, ExternalLink, Target
+  ChevronRight, Sparkles, Mail,
+  Phone, ExternalLink, Target, FileDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -111,7 +111,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     loadDashboardData();
-    
+
     // Check if we should show quote modal
     if (searchParams.get('action') === 'quote') {
       setShowQuoteModal(true);
@@ -235,12 +235,12 @@ export default function DashboardPage() {
                   <p className="text-navy-300 text-sm">Start a new insurance application</p>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
                 {insuranceTypes.filter(i => i.available).slice(0, 4).map((insurance) => {
                   const Icon = insurance.icon;
                   const existingDraft = drafts.find(d => d.insuranceType === insurance.id);
-                  
+
                   return (
                     <Link
                       key={insurance.id}
@@ -261,6 +261,29 @@ export default function DashboardPage() {
             </div>
           </div>
 
+          {/* ACORD Forms Quick Action */}
+          <Link
+            href="/dashboard/forms"
+            className="block bg-gradient-to-r from-indigo-50 to-violet-50 rounded-2xl border border-indigo-200 p-5 hover:shadow-lg transition-all group"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
+                  <FileDown className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-navy-900 group-hover:text-indigo-600 transition-colors">
+                    ACORD Forms
+                  </h3>
+                  <p className="text-sm text-navy-600">
+                    Download blank forms or upload filled PDFs for instant data extraction
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-navy-400 group-hover:text-indigo-500 transition-colors" />
+            </div>
+          </Link>
+
           {/* Continue Where You Left Off */}
           {drafts.length > 0 && (
             <div className="bg-white rounded-2xl border border-navy-100 overflow-hidden">
@@ -273,14 +296,14 @@ export default function DashboardPage() {
                   {drafts.length} Draft{drafts.length === 1 ? '' : 's'}
                 </span>
               </div>
-              
+
               <div className="divide-y divide-navy-100">
                 {drafts.map((draft) => {
                   const insurance = getInsuranceInfo(draft.insuranceType);
                   const Icon = insurance?.icon || FileText;
                   const totalSteps = 15;
                   const progress = Math.round(((draft.lastSavedStep || 0) + 1) / totalSteps * 100);
-                  
+
                   return (
                     <Link
                       key={draft.id}
@@ -290,7 +313,7 @@ export default function DashboardPage() {
                       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${insurance?.color || 'from-navy-500 to-navy-600'} flex items-center justify-center flex-shrink-0`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
-                      
+
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <h4 className="font-semibold text-navy-900 group-hover:text-gold-600 transition-colors">
@@ -303,7 +326,7 @@ export default function DashboardPage() {
                         <p className="text-sm text-navy-500 mt-1">
                           Last edited {new Date(draft.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </p>
-                        
+
                         {/* Progress Bar */}
                         <div className="mt-3">
                           <div className="flex items-center justify-between text-xs text-navy-500 mb-1">
@@ -311,14 +334,14 @@ export default function DashboardPage() {
                             <span>{progress}% complete</span>
                           </div>
                           <div className="h-2 bg-navy-100 rounded-full overflow-hidden">
-                            <div 
+                            <div
                               className={`h-full bg-gradient-to-r ${insurance?.color || 'from-gold-400 to-gold-500'} rounded-full transition-all`}
                               style={{ width: `${progress}%` }}
                             />
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 text-gold-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                         Continue
                         <ChevronRight className="w-4 h-4" />
@@ -342,12 +365,12 @@ export default function DashboardPage() {
                   View All <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
-              
+
               <div className="divide-y divide-navy-100">
                 {applications.slice(0, 5).map((app) => {
                   const insurance = getInsuranceInfo(app.insuranceType);
                   const Icon = insurance?.icon || FileText;
-                  
+
                   return (
                     <Link
                       key={app.id}
@@ -357,7 +380,7 @@ export default function DashboardPage() {
                       <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${insurance?.color || 'from-navy-500 to-navy-600'} flex items-center justify-center flex-shrink-0`}>
                         <Icon className="w-5 h-5 text-white" />
                       </div>
-                      
+
                       <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-navy-900 group-hover:text-gold-600 transition-colors truncate">
                           {insurance?.name || app.insuranceType}
@@ -366,7 +389,7 @@ export default function DashboardPage() {
                           {app.data?.companyInfo?.legalName || 'Company info pending'}
                         </p>
                       </div>
-                      
+
                       <div className="text-right flex-shrink-0">
                         <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(app.status)}`}>
                           {app.status.charAt(0).toUpperCase() + app.status.slice(1).replace('-', ' ')}
@@ -405,7 +428,7 @@ export default function DashboardPage() {
           {/* Activity Timeline */}
           <div className="bg-white rounded-2xl border border-navy-100 p-5">
             <h3 className="font-bold text-navy-900 mb-4">Recent Activity</h3>
-            
+
             {(applications.length > 0 || drafts.length > 0) ? (
               <div className="space-y-4">
                 {[...applications, ...drafts.map(d => ({ ...d, status: 'draft' as const }))]
@@ -414,7 +437,7 @@ export default function DashboardPage() {
                   .map((item, idx) => {
                     const insurance = getInsuranceInfo(item.insuranceType);
                     const Icon = insurance?.icon || FileText;
-                    
+
                     return (
                       <div key={idx} className="flex gap-3">
                         <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${insurance?.color || 'from-navy-400 to-navy-500'} flex items-center justify-center flex-shrink-0`}>
@@ -440,9 +463,9 @@ export default function DashboardPage() {
           {/* Quick Help */}
           <div className="bg-gradient-to-br from-gold-50 to-amber-50 rounded-2xl border border-gold-200 p-5">
             <h3 className="font-bold text-navy-900 mb-4">Need Assistance?</h3>
-            
+
             <div className="space-y-3">
-              <a 
+              <a
                 href="mailto:marianne@strategibuilder.com"
                 className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gold-200 hover:border-gold-400 transition-colors group"
               >
@@ -455,8 +478,8 @@ export default function DashboardPage() {
                 </div>
                 <ExternalLink className="w-4 h-4 text-navy-400" />
               </a>
-              
-              <a 
+
+              <a
                 href="tel:+1234567890"
                 className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gold-200 hover:border-gold-400 transition-colors group"
               >
@@ -469,8 +492,8 @@ export default function DashboardPage() {
                 </div>
                 <ExternalLink className="w-4 h-4 text-navy-400" />
               </a>
-              
-              <a 
+
+              <a
                 href="/help"
                 className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gold-200 hover:border-gold-400 transition-colors group"
               >
@@ -499,13 +522,12 @@ export default function DashboardPage() {
             </p>
             <div className="flex flex-wrap gap-2">
               {insuranceTypes.map((insurance) => (
-                <span 
+                <span
                   key={insurance.id}
-                  className={`text-xs font-medium px-3 py-1.5 rounded-full border ${
-                    insurance.available 
-                      ? `${insurance.bgColor} ${insurance.borderColor} text-navy-700` 
-                      : 'bg-navy-50 border-navy-200 text-navy-400'
-                  }`}
+                  className={`text-xs font-medium px-3 py-1.5 rounded-full border ${insurance.available
+                    ? `${insurance.bgColor} ${insurance.borderColor} text-navy-700`
+                    : 'bg-navy-50 border-navy-200 text-navy-400'
+                    }`}
                 >
                   {insurance.shortName}
                 </span>
@@ -524,7 +546,7 @@ export default function DashboardPage() {
                 <h2 className="text-2xl font-bold text-navy-900">Select Coverage Type</h2>
                 <p className="text-navy-600 mt-1">Choose the insurance product you need</p>
               </div>
-              <button 
+              <button
                 onClick={() => setShowQuoteModal(false)}
                 className="p-2 hover:bg-navy-50 rounded-lg transition-colors"
               >
@@ -534,12 +556,12 @@ export default function DashboardPage() {
                 </svg>
               </button>
             </div>
-            
+
             <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {insuranceTypes.map((insurance) => {
                 const Icon = insurance.icon;
                 const existingDraft = drafts.find(d => d.insuranceType === insurance.id);
-                
+
                 return (
                   <Link
                     key={insurance.id}
@@ -551,31 +573,30 @@ export default function DashboardPage() {
                         e.preventDefault();
                       }
                     }}
-                    className={`relative bg-white rounded-xl p-5 border-2 transition-all ${
-                      insurance.available
-                        ? 'border-navy-200 hover:border-gold-400 hover:shadow-lg'
-                        : 'border-navy-100 opacity-50 cursor-not-allowed'
-                    }`}
+                    className={`relative bg-white rounded-xl p-5 border-2 transition-all ${insurance.available
+                      ? 'border-navy-200 hover:border-gold-400 hover:shadow-lg'
+                      : 'border-navy-100 opacity-50 cursor-not-allowed'
+                      }`}
                   >
                     {!insurance.available && (
                       <div className="absolute top-3 right-3 bg-navy-100 text-navy-500 text-xs font-medium px-2 py-1 rounded-full">
                         Coming Soon
                       </div>
                     )}
-                    
+
                     {existingDraft && insurance.available && (
                       <div className="absolute top-3 right-3 bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-1 rounded-full">
                         Resume Draft
                       </div>
                     )}
-                    
+
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${insurance.color} flex items-center justify-center mb-4`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    
+
                     <h3 className="text-lg font-bold text-navy-900 mb-1">{insurance.name}</h3>
                     <p className="text-navy-600 text-sm">{insurance.description}</p>
-                    
+
                     {insurance.available && (
                       <div className="mt-4 flex items-center text-gold-600 font-semibold text-sm">
                         {existingDraft ? 'Continue Application' : 'Start Application'}
