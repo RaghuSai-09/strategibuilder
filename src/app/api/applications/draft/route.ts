@@ -9,7 +9,7 @@ interface DraftStore {
   saveDraft(key: string, data: any): Promise<void>;
   getDraft(key: string): Promise<any | null>;
   deleteDraft(key: string): Promise<void>;
-  getAllDraftKeys(): Promise<string[]>;
+  getAllDrafts(): Promise<any[]>;
 }
 
 // File-based implementation for development/fallback
@@ -39,7 +39,7 @@ class FileDraftStore implements DraftStore {
     this.ensureDraftsDir();
     const filePath = this.getDraftPath(key);
     const tempPath = `${filePath}.tmp.${Date.now()}`;
-    
+
     try {
       // Write to temp file first
       fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
@@ -86,12 +86,12 @@ class FileDraftStore implements DraftStore {
     }
   }
 
-  async getAllDraftKeys(): Promise<any[]> {
+  async getAllDrafts(): Promise<any[]> {
     this.ensureDraftsDir();
     try {
       const files = fs.readdirSync(this.draftsDir)
         .filter(f => f.endsWith('.json') && !f.includes('.tmp'));
-      
+
       const drafts = [];
       for (const file of files) {
         try {
@@ -217,7 +217,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Return all drafts for user
-    const allDrafts = await draftStore.getAllDraftKeys();
+    const allDrafts = await draftStore.getAllDrafts();
     const userDrafts: any[] = [];
 
     for (const draft of allDrafts) {
