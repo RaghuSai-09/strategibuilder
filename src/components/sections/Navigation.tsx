@@ -23,30 +23,34 @@ export const Navigation: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
-    
-    // Set initial state
     handleScroll()
-    
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-navy-900/95 backdrop-blur-md shadow-lg border-b border-teal-200/10'
-          : 'bg-navy-900/80 backdrop-blur-sm'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
+        backdrop-blur-xl border-b
+        ${isScrolled
+          ? 'bg-navy-900/40 border-teal-200/15 shadow-[0_8px_32px_rgba(0,0,0,0.35)]'
+          : 'bg-transparent backdrop-blur-none border-transparent shadow-none'
+        }`}
+      style={{
+        WebkitBackdropFilter: 'blur(20px)',
+      }}
     >
+      {/* Frosted glass inner highlight line */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-60 h-20 transition-transform group-hover:scale-110">
-              <Image 
-                src="/logo1.png" 
-                alt="Strategi Builder Logo" 
+            <div className="relative w-60 h-20 transition-transform group-hover:scale-105">
+              <Image
+                src="/logo1.png"
+                alt="Strategi Builder Logo"
                 fill
                 className="object-contain"
                 priority
@@ -60,10 +64,10 @@ export const Navigation: React.FC = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative font-light transition-colors group text-teal-200 hover:text-white"
+                className="relative font-light transition-colors group text-teal-100/90 hover:text-white"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
           </div>
@@ -89,19 +93,27 @@ export const Navigation: React.FC = () => {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-navy-800 border-t border-teal-200/10 shadow-xl">
+        <div
+          className="lg:hidden border-t border-white/10 shadow-xl"
+          style={{
+            background: 'rgba(13, 27, 42, 0.75)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
+        >
           <div className="px-4 py-6 space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative block py-2 text-teal-200 hover:text-white font-medium transition-colors group">
+                className="relative block py-2 text-teal-100/90 hover:text-white font-medium transition-colors group"
+              >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
-            <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-teal-200/10">
+            <div className="flex flex-col gap-3 mt-6 pt-6 border-t border-white/10">
               <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button className="w-full">
                   Get Started

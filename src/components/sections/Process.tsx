@@ -44,15 +44,100 @@ const steps = [
   },
 ]
 
+const TimelineStep: React.FC<{
+  step: typeof steps[0]
+  index: number
+  isLast: boolean
+}> = ({ step, index, isLast }) => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 })
+  const Icon = step.icon
+  const isEven = index % 2 === 0
+
+  return (
+    <div ref={ref} className={`scroll-animate ${isVisible ? 'visible animate-fade-in-up' : ''}`}>
+      {/* Desktop: alternating sides */}
+      <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-8 items-start">
+        {/* Left content (even steps) */}
+        <div className={`${isEven ? 'text-right' : ''}`}>
+          {isEven ? (
+            <div className="pr-4">
+              <h3 className="text-2xl font-serif font-normal text-white mb-3">
+                {step.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed font-light">
+                {step.description}
+              </p>
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
+
+        {/* Center: timeline node */}
+        <div className="flex flex-col items-center">
+          <div className={`relative z-10 w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg shadow-${step.color.split(' ')[0].replace('from-', '')}/20 ring-4 ring-navy-900`}>
+            <Icon className="w-7 h-7 text-white" />
+          </div>
+          
+          {!isLast && (
+            <div className="w-0.5 h-24 bg-gradient-to-b from-gold-500/60 to-gold-500/10 mt-2" />
+          )}
+        </div>
+
+        {/* Right content (odd steps) */}
+        <div>
+          {isEven ? (
+            <div />
+          ) : (
+            <div className="pl-4">
+              <h3 className="text-2xl font-serif font-normal text-white mb-3">
+                {step.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed font-light">
+                {step.description}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile / Tablet: left-aligned timeline */}
+      <div className="lg:hidden flex gap-6">
+        {/* Timeline node */}
+        <div className="flex flex-col items-center flex-shrink-0">
+          <div className={`relative z-10 w-12 h-12 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg ring-4 ring-navy-900`}>
+            <Icon className="w-5 h-5 text-white" />
+          </div>
+          {!isLast && (
+            <div className="w-0.5 flex-1 bg-gradient-to-b from-gold-500/60 to-gold-500/10 mt-2 min-h-[2rem]" />
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="pb-10">
+          <span className="text-xs font-bold text-gold-400 uppercase tracking-widest">
+            Step {index + 1}
+          </span>
+          <h3 className="text-xl font-serif font-normal text-white mb-2 mt-1">
+            {step.title}
+          </h3>
+          <p className="text-gray-400 leading-relaxed font-light text-sm">
+            {step.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export const Process: React.FC = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
-  const { ref: stepsRef, isVisible: stepsVisible } = useScrollAnimation()
 
   return (
     <Section className="bg-navy-900 text-white" id="process">
-      <div 
+      <div
         ref={headerRef}
-        className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
+        className={`text-center mb-20 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
         <h2 className="text-5xl md:text-6xl font-serif font-normal text-white mb-6">
           Our Proven Process
@@ -62,41 +147,15 @@ export const Process: React.FC = () => {
         </p>
       </div>
 
-      <div className="relative" ref={stepsRef}>
-        {/* Connection line - hidden on mobile */}
-        <div className="hidden lg:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-gold-500 to-gold-300 opacity-30" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((step, index) => {
-            const Icon = step.icon
-            return (
-              <div 
-                key={step.title} 
-                className={`relative scroll-animate ${stepsVisible ? `visible animate-fade-in-up stagger-${index + 1}` : ''}`}
-              >
-                {/* Step number */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center text-navy-900 font-bold text-sm z-10">
-                  {index + 1}
-                </div>
-
-                <div className="bg-navy-800/50 backdrop-blur-sm rounded-2xl p-6 border border-teal-200/20 hover:border-gold-500/50 transition-all duration-500 hover:transform hover:scale-110 hover:-translate-y-2 h-full group glass-effect hover-lift">
-                  {/* Icon */}
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 animate-glow-pulse`}>
-                    <Icon className="w-8 h-8 text-white group-hover:animate-bounce-slow" />
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-bold text-white mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+      <div className="max-w-4xl mx-auto">
+        {steps.map((step, index) => (
+          <TimelineStep
+            key={step.title}
+            step={step}
+            index={index}
+            isLast={index === steps.length - 1}
+          />
+        ))}
       </div>
     </Section>
   )

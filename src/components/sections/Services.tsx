@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react'
 import { Section } from '@/components/ui/Section'
-import { Card } from '@/components/ui/Card'
-import { Shield, Briefcase, FileCheck, AlertTriangle, Puzzle, Lightbulb, HeadphonesIcon, Network, X } from 'lucide-react'
+import { Shield, Briefcase, FileCheck, AlertTriangle, Puzzle, Lightbulb, HeadphonesIcon, Network } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const services = [
@@ -131,12 +130,15 @@ const services = [
 
 export const Services: React.FC = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
-  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation({ threshold: 0.1 })
-  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null)
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1 })
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const active = services[activeIndex]
+  const ActiveIcon = active.icon
 
   return (
     <Section gradient id="services" className="bg-gold-50">
-      <div 
+      <div
         ref={headerRef}
         className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
@@ -148,110 +150,115 @@ export const Services: React.FC = () => {
         </p>
       </div>
 
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service, index) => {
-          const Icon = service.icon
-          return (
-            <div
-              key={service.title}
-              className={`scroll-animate ${cardsVisible ? `visible animate-fade-in-up stagger-${(index % 6) + 1}` : ''}`}
-            >
-              <Card hover gradient className="group perspective-1000 h-full bg-gold-50/80 border-gold-200 hover:shadow-2xl hover:border-gold-400">
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                <Icon className="w-7 h-7 text-white" />
-              </div>
-              
-              <h3 className="text-2xl font-serif font-normal text-navy-900 mb-4">
-                {service.title}
-              </h3>
-              
-              <p className="text-navy-600 leading-relaxed mb-6 font-light line-clamp-2">
-                {service.description}
-              </p>
-              
-              <button 
-                onClick={() => setSelectedService(service)}
-                className="text-navy-900 font-medium transition-colors inline-flex items-center group relative mt-auto"
+      <div
+        ref={contentRef}
+        className={`scroll-animate ${contentVisible ? 'visible animate-fade-in-up' : ''}`}
+      >
+        {/* Tab pills */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {services.map((service, index) => {
+            const Icon = service.icon
+            const isActive = index === activeIndex
+            return (
+              <button
+                key={service.title}
+                onClick={() => setActiveIndex(index)}
+                className={`
+                  inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium
+                  transition-all duration-300 border
+                  ${isActive
+                    ? 'bg-navy-900 text-white border-navy-900 shadow-lg shadow-navy-900/20 scale-105'
+                    : 'bg-white text-navy-700 border-gold-200 hover:border-gold-400 hover:bg-gold-50 hover:shadow-md'
+                  }
+                `}
               >
-                Learn more
-                <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <Icon className={`w-4 h-4 ${isActive ? 'text-gold-400' : 'text-navy-400'}`} />
+                <span className="hidden sm:inline">{service.title}</span>
+                <span className="sm:hidden">{service.title.split(' ')[0]}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Active service detail panel */}
+        <div
+          key={activeIndex}
+          className="relative bg-white rounded-3xl border border-gold-200 overflow-hidden shadow-sm animate-fade-in-up"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-5">
+            {/* Left: description */}
+            <div className="lg:col-span-3 p-8 md:p-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${active.color} flex items-center justify-center flex-shrink-0`}>
+                  <ActiveIcon className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-serif font-normal text-navy-900">
+                  {active.title}
+                </h3>
+              </div>
+
+              <p className="text-navy-600 leading-relaxed text-lg mb-8 font-light">
+                {active.fullDescription}
+              </p>
+
+              <button
+                onClick={() => {
+                  const el = document.getElementById('contact')
+                  el?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="inline-flex items-center gap-2 text-navy-900 font-medium group"
+              >
+                Get in touch
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
-              </button>
-            </Card>
-          </div>
-          )
-        })}
-      </div>
-
-      {/* Modal */}
-      {selectedService && (
-        <button 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in border-0 cursor-default"
-          onClick={() => setSelectedService(null)}
-          onKeyDown={(e) => e.key === 'Escape' && setSelectedService(null)}
-          aria-label="Close modal overlay"
-        >
-          <dialog 
-            open
-            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in border-0 p-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-white border-b border-navy-100 p-6 flex items-start justify-between rounded-t-2xl z-10">
-              <div className="flex items-start gap-4">
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${selectedService.color} flex items-center justify-center flex-shrink-0`}>
-                  {React.createElement(selectedService.icon, { className: "w-7 h-7 text-white" })}
-                </div>
-                <div>
-                  <h3 className="text-3xl font-serif font-normal text-navy-900">
-                    {selectedService.title}
-                  </h3>
-                </div>
-              </div>
-              <button
-                onClick={() => setSelectedService(null)}
-                className="text-navy-400 hover:text-navy-600 transition-colors p-2 hover:bg-navy-50 rounded-lg"
-                aria-label="Close modal"
-              >
-                <X className="w-6 h-6" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full" />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 space-y-6">
-              <p className="text-navy-600 leading-relaxed text-lg">
-                {selectedService.fullDescription}
-              </p>
-
-              <div>
-                <h4 className="text-xl font-bold text-navy-900 mb-4">Key Solutions</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {selectedService.keyPoints.map((point) => (
-                    <div key={point} className="flex items-start gap-3 bg-navy-50 p-3 rounded-lg">
-                      <svg className="w-5 h-5 text-gold-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            {/* Right: key points */}
+            <div className="lg:col-span-2 bg-navy-900 p-8 md:p-12 flex flex-col justify-center">
+              <h4 className="text-sm font-semibold text-gold-400 uppercase tracking-wider mb-6">
+                Key Solutions
+              </h4>
+              <div className="space-y-4">
+                {active.keyPoints.map((point, i) => (
+                  <div
+                    key={point}
+                    className="flex items-start gap-3 animate-fade-in-up"
+                    style={{ animationDelay: `${i * 80}ms` }}
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gold-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3.5 h-3.5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-navy-700 text-sm">{point}</span>
                     </div>
-                  ))}
-                </div>
+                    <span className="text-gray-300 text-sm leading-relaxed">{point}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Modal Footer */}
-            <div className="border-t border-navy-100 p-6 bg-navy-50 rounded-b-2xl">
+          {/* Bottom navigation dots */}
+          <div className="flex justify-center gap-2 py-4 bg-gold-50/50 border-t border-gold-100">
+            {services.map((svc, index) => (
               <button
-                onClick={() => setSelectedService(null)}
-                className="w-full bg-navy-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-navy-900 transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          </dialog>
-        </button>
-      )}
+                key={svc.title}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Go to service ${index + 1}`}
+                className={`
+                  rounded-full transition-all duration-300
+                  ${index === activeIndex
+                    ? 'w-8 h-2 bg-navy-900'
+                    : 'w-2 h-2 bg-navy-300 hover:bg-navy-500'
+                  }
+                `}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </Section>
   )
 }

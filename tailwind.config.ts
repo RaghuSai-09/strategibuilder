@@ -103,6 +103,9 @@ const config: Config = {
         'gradient-navy': 'linear-gradient(135deg, #1B365D 0%, #0D1B2A 100%)',
         'gradient-gold': 'linear-gradient(135deg, #C9A962 0%, #b8994e 100%)',
       },
+      maxWidth: {
+        container: '1280px',
+      },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
         'slide-up': 'slideUp 0.6s ease-out',
@@ -112,6 +115,7 @@ const config: Config = {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'spin-slow': 'spin 8s linear infinite',
         'bounce-gentle': 'bounce 3s ease-in-out infinite',
+        'marquee': 'marquee var(--duration) linear infinite',
       },
       backgroundSize: {
         '200': '200% 200%',
@@ -136,6 +140,10 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-20px)' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
         },
       },
     },
