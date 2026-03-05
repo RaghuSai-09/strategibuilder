@@ -12,7 +12,7 @@ const testimonials = [
       name: 'Joerg Jørgensen',
       handle: 'International Insurance Advisor',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-      href: 'https://www.linkedin.com/in/joerg-jorgensen-61535510/',
+      
     },
     text: 'I\u2019ve worked with Marianne on a number of international clients expanding into the U.S. market, including companies that transition from private to public. She has a strong understanding of cross-border insurance considerations and brings a practical, steady approach to navigating complexity as clients establish and grow their U.S. presence.',
   },
@@ -21,7 +21,7 @@ const testimonials = [
       name: 'Scott Chesky',
       handle: 'Managing Partner, Chesky Partners',
       avatar: 'https://media.licdn.com/dms/image/v2/D4E03AQEvTvNqDe5Gog/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1675650950653?e=1774483200&v=beta&t=XVALJtzh6rA7pkgdnY-GD7WLd5d0DL4xAG6IxJq3F0w',
-      href: 'https://www.linkedin.com/in/scottchesky/',
+     
     },
     text: 'Marianne is a trusted advisor to our firm and our clients during M&A transactions. Her expertise in tail D&O and Rep & Warranty insurance brings clarity and confidence to sellers navigating complex exits. She is responsive, strategic, and a true partner in getting deals done.',
   },
@@ -30,7 +30,7 @@ const testimonials = [
       name: 'Andre A. Hakkak',
       handle: 'Founder & CEO, White Oak Global Advisors',
       avatar: 'https://whiteoaksf.com/wp-content/uploads/2017/05/Andre-Hakkak.jpg',
-      href: '/',
+      
     },
     text: 'Marianne has been a trusted partner to us at White Oak Global Advisors for our business insurance needs and beyond. She brings a practical, thoughtful approach to lender diligence and has been especially helpful in working through complex D&O situations where coverage can be difficult to obtain.',
   },

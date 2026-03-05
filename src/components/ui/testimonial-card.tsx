@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
-import Link  from "next/link"
+
 export interface TestimonialAuthor {
   name: string
   handle: string
@@ -41,7 +41,7 @@ export function TestimonialCard({
         </Avatar>
         <div className="flex flex-col items-start">
           <h3 className="text-md font-semibold leading-none text-navy-900">
-            <Link href={author.href}>{author.name}</Link>
+            {author.name}
           </h3>
           <p className="text-sm text-navy-600">
             {author.handle}
