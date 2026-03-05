@@ -1,6 +1,5 @@
 import { Navigation } from '@/components/sections/Navigation'
 import { Hero } from '@/components/sections/Hero'
-import { ValueProposition } from '@/components/sections/ValueProposition'
 import { Services } from '@/components/sections/Services'
 import { Process } from '@/components/sections/Process'
 import { TargetMarket } from '@/components/sections/TargetMarket'
@@ -15,7 +14,6 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <Hero />
-      
       <Services />
       <Process />
       <TargetMarket />
