@@ -37,11 +37,11 @@ const testimonials = [
 ]
 
 const companyLogos = [
-  '/cheskey_logo.jpg',
+  '/cheskey_logo.png',
   '/Founders_Logo.png',
   '/GCP_logo.png',
   '/CSP_logo.png',
-  '/white-oak.webp',
+  '/white-oak.png',
 ]
 
 export const SocialProof: React.FC = () => {
@@ -61,9 +61,15 @@ export const SocialProof: React.FC = () => {
         ref={logosRef}
         className={`text-center mt-20 scroll-animate ${logosVisible ? 'visible animate-fade-in' : ''}`}
       >
-        <p className="text-md text-navy-700 mb-10  tracking-wider font-semibold">
+        <p className="text-xl text-navy-700 mb-2  tracking-wider font-semibold">
           Respected advisors who entrust us to support the clients they serve.
         </p>
+        <p className="max-w-2xl mx-auto text-sm md:text-base font-light  leading-relaxed mb-10">
+              We partner with leaders, investors, and lenders to navigate complex risk across M&amp;A,
+              restructuring, and growth through modern tools, trusted relationships, and strategic
+              market access.
+            </p>
+
 
         <div className="relative w-full overflow-hidden">
           <div className="flex items-center whitespace-nowrap animate-marquee hover:[animation-play-state:paused] [--duration:30s] [--gap:3rem] [gap:var(--gap)]">

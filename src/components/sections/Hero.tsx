@@ -138,7 +138,7 @@ const InWord: React.FC<{
           filter: isActive ? 'drop-shadow(0 0 12px rgba(201,169,98,0.8))' : 'none',
         }}
       >
-        In 
+        In  
       </span>
       <span className="text-inherit">{rest}</span>
 
@@ -246,19 +246,18 @@ export const Hero: React.FC = () => {
           <div className="text-center space-y-6">
             {/* Headline */}
             <h1
-              className="text-5xl md:text-6xl font-serif font-normal tracking-tight leading-tight text-white"
+              className="text-5xl md:text-6xl font-roboto font-normal tracking-tight leading-tight text-white"
               style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5), 0 6px 40px rgba(0,0,0,0.3)' }}
             >
-              Boutique <span className="text-gold-500 italic">In </span>surance Brokerage
-              <br />
-              <span className="text-white/75 font-light">
+              Boutique <span className="text-gold-500 italic cursor-pointer">In </span>surance Brokerage<br></br>
+              <span className="text-white/75 font-light font-serif">
                 &amp; Strategic Risk Advisory
               </span>
             </h1>
 
             {/* Tagline with interactive IN words */}
             <p
-              className="text-lg md:text-xl font-light tracking-wide text-white/70 leading-relaxed"
+              className="text-lg md:text-xl font-serif tracking-wide text-white/70 leading-relaxed"
               style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
             >
               Guided with{' '}
@@ -270,19 +269,9 @@ export const Hero: React.FC = () => {
               .
             </p>
 
-            {/* Body */}
-            <p
-              className="max-w-2xl mx-auto text-sm md:text-base font-light text-white/60 leading-relaxed"
-              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.4)' }}
-            >
-              We partner with leaders, investors, and lenders to navigate complex risk across M&amp;A,
-              restructuring, and growth through modern tools, trusted relationships, and strategic
-              market access.
-            </p>
-
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Link href="/contact">
+              <Link href="/auth">
                 <Button size="lg" variant="primary" className="shadow-xl shadow-gold-900/30">
                   Get Started
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
