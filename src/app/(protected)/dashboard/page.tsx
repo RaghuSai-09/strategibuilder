@@ -1,15 +1,44 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   Shield, Lock, Globe, Users, TrendingUp, AlertTriangle,
   FileText, Plus, CheckCircle, Clock,
   ChevronRight, Sparkles, Mail,
-  Phone, ExternalLink, Target, FileDown
+  Phone, ExternalLink, Target, FileDown, Sun, Moon, CloudSun
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { getRelativeTime, getTimeGreeting } from '@/lib/date-utils';
+
+// Animated count-up hook
+function useCountUp(target: number, duration = 1200) {
+  const [count, setCount] = useState(0);
+  const frameRef = useRef<number>();
+
+  useEffect(() => {
+    if (target === 0) { setCount(0); return; }
+    const start = performance.now();
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setCount(Math.round(eased * target));
+      if (progress < 1) frameRef.current = requestAnimationFrame(animate);
+    };
+    frameRef.current = requestAnimationFrame(animate);
+    return () => { if (frameRef.current) cancelAnimationFrame(frameRef.current); };
+  }, [target, duration]);
+
+  return count;
+}
+
+// Mock activity for when there are no real applications
+const mockActivity = [
+  { insuranceType: 'tech-eo', status: 'info', label: 'Tech E&O form templates updated', updatedAt: new Date(Date.now() - 3600000).toISOString() },
+  { insuranceType: 'cyber', status: 'info', label: 'New cyber liability coverage options available', updatedAt: new Date(Date.now() - 86400000).toISOString() },
+  { insuranceType: 'dno', status: 'info', label: 'D&O application form simplified', updatedAt: new Date(Date.now() - 172800000).toISOString() },
+];
 
 interface Application {
   id: string;
@@ -158,6 +187,15 @@ export default function DashboardPage() {
   const reviewCount = applications.filter(a => a.status === 'under-review').length;
   const approvedCount = applications.filter(a => a.status === 'approved').length;
 
+  const animDraft = useCountUp(draftCount);
+  const animSubmitted = useCountUp(submittedCount);
+  const animReview = useCountUp(reviewCount);
+  const animApproved = useCountUp(approvedCount);
+
+  const greeting = getTimeGreeting();
+  const greetingIcon = greeting.includes('morning') ? Sun : greeting.includes('afternoon') ? CloudSun : Moon;
+  const GreetingIcon = greetingIcon;
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -171,6 +209,22 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
+      {/* Welcome Banner */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-amber-500 flex items-center justify-center shadow-lg shadow-gold-500/20">
+            <GreetingIcon className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-navy-900">{greeting}, Demo User</h1>
+            <p className="text-sm text-navy-500">Here&apos;s what&apos;s happening with your insurance portfolio</p>
+          </div>
+        </div>
+        <p className="text-xs text-navy-400 hidden sm:block">
+          {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+        </p>
+      </div>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-2xl p-5 border border-navy-100 hover:shadow-lg transition-shadow">
@@ -178,7 +232,7 @@ export default function DashboardPage() {
             <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
               <Clock className="w-5 h-5 text-amber-500" />
             </div>
-            <span className="text-2xl font-bold text-navy-900">{draftCount}</span>
+            <span className="text-2xl font-bold text-navy-900">{animDraft}</span>
           </div>
           <p className="text-sm text-navy-600 font-medium">Draft Applications</p>
           <p className="text-xs text-navy-400 mt-1">Continue where you left off</p>
@@ -189,7 +243,7 @@ export default function DashboardPage() {
             <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
               <FileText className="w-5 h-5 text-blue-500" />
             </div>
-            <span className="text-2xl font-bold text-navy-900">{submittedCount}</span>
+            <span className="text-2xl font-bold text-navy-900">{animSubmitted}</span>
           </div>
           <p className="text-sm text-navy-600 font-medium">Submitted</p>
           <p className="text-xs text-navy-400 mt-1">Awaiting review</p>
@@ -200,7 +254,7 @@ export default function DashboardPage() {
             <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
               <Shield className="w-5 h-5 text-purple-500" />
             </div>
-            <span className="text-2xl font-bold text-navy-900">{reviewCount}</span>
+            <span className="text-2xl font-bold text-navy-900">{animReview}</span>
           </div>
           <p className="text-sm text-navy-600 font-medium">Under Review</p>
           <p className="text-xs text-navy-400 mt-1">Being processed</p>
@@ -211,7 +265,7 @@ export default function DashboardPage() {
             <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
               <CheckCircle className="w-5 h-5 text-emerald-500" />
             </div>
-            <span className="text-2xl font-bold text-navy-900">{approvedCount}</span>
+            <span className="text-2xl font-bold text-navy-900">{animApproved}</span>
           </div>
           <p className="text-sm text-navy-600 font-medium">Approved</p>
           <p className="text-xs text-navy-400 mt-1">Ready to bind</p>
@@ -448,7 +502,7 @@ export default function DashboardPage() {
                             {insurance?.shortName} - {item.status === 'draft' ? 'Draft Saved' : 'Application ' + item.status}
                           </p>
                           <p className="text-xs text-navy-500">
-                            {new Date(item.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                            {getRelativeTime(item.updatedAt)}
                           </p>
                         </div>
                       </div>
@@ -456,7 +510,28 @@ export default function DashboardPage() {
                   })}
               </div>
             ) : (
-              <p className="text-sm text-navy-500 text-center py-6">No recent activity</p>
+              <div className="space-y-4">
+                {mockActivity.map((item, idx) => {
+                  const insurance = getInsuranceInfo(item.insuranceType);
+                  const Icon = insurance?.icon || FileText;
+
+                  return (
+                    <div key={idx} className="flex gap-3">
+                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${insurance?.color || 'from-navy-400 to-navy-500'} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-navy-900 font-medium truncate">
+                          {item.label}
+                        </p>
+                        <p className="text-xs text-navy-500">
+                          {getRelativeTime(item.updatedAt)}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
 

@@ -18,6 +18,9 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://strategibuilder.com'
+  ),
   title: 'Strategi Builder LLC - Boutique Insurance Brokerage & Risk Advisory',
   description: 'Boutique insurance brokerage specializing in complex placements. Guided by intention, built on integrity, driven by intelligence. Expert policy solutions for M&A, restructuring, and growth.',
   keywords: ['insurance broker', 'policy brokerage', 'risk advisory', 'M&A insurance', 'D&O insurance', 'management liability', 'transactional insurance'],

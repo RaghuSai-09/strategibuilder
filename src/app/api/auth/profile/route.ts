@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 // Shared utility to extract token from request
 function extractToken(request: NextRequest): string | null {
   // Try cookie first

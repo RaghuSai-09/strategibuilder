@@ -21,6 +21,8 @@ import {
   Bell,
   Sparkles,
   FileDown,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -151,7 +153,7 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo & Header */}
-      <div className="p-6 border-b border-navy-100">
+      <div className="p-6 border-b border-navy-100 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl flex items-center justify-center">
             <Shield className="w-5 h-5 text-gold-400" />
@@ -163,6 +165,17 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
             </div>
           )}
         </Link>
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="hidden lg:flex p-1.5 text-navy-400 hover:text-navy-700 hover:bg-navy-50 rounded-lg transition-colors"
+          title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {isCollapsed ? (
+            <PanelLeftOpen className="w-4 h-4" />
+          ) : (
+            <PanelLeftClose className="w-4 h-4" />
+          )}
+        </button>
       </div>
 
       {/* User Info */}
@@ -206,6 +219,7 @@ export default function Sidebar({ user, onLogout }: SidebarProps) {
               <Link
                 key={item.name}
                 href={item.href}
+                title={isCollapsed ? item.name : undefined}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${item.active
                   ? 'bg-navy-900 text-white'
                   : 'text-navy-600 hover:bg-navy-50 hover:text-navy-900'

@@ -1,10 +1,10 @@
 import { Navigation } from '@/components/sections/Navigation'
-import { Hero } from '@/components/sections/Hero'
+import { HeroBackup } from '@/components/sections/HeroBackup'
 import { Services } from '@/components/sections/Services'
+import { Team } from '@/components/sections/Team'
 import { Process } from '@/components/sections/Process'
-import { TargetMarket } from '@/components/sections/TargetMarket'
+import { SolutionsByStage } from '@/components/sections/SolutionsByStage'
 import { SocialProof } from '@/components/sections/SocialProof'
-import { AuthBanner } from '@/components/sections/AuthBanner'
 import { Faq } from '@/components/sections/FAQ'
 import { Cta } from '@/components/sections/CTA'
 import { Footer } from '@/components/sections/Footer'
@@ -13,12 +13,13 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <Hero />
+      <HeroBackup />
+      <Team />
       <Services />
       <Process />
-      <TargetMarket />
+      <SolutionsByStage />
       <SocialProof />
-      <AuthBanner />
+      
       <Faq />
       <Cta />
       <Footer />

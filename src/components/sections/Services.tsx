@@ -1,264 +1,312 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { Section } from '@/components/ui/Section'
-import { Shield, Briefcase, FileCheck, AlertTriangle, Puzzle, Lightbulb, HeadphonesIcon, Network } from 'lucide-react'
+import { ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 const services = [
   {
-    icon: Shield,
-    title: 'Management & Professional Liability',
-    description: 'Advising on and placing management liability programs, including D&O, EPLI, Fiduciary Liability, and E&O.',
-    fullDescription: 'Advising on and placing management liability programs, including D&O, EPLI, Fiduciary Liability, and E&O. This work often involves heightened scrutiny, lender or investor requirements, or evolving risk profiles that require careful market coordination.',
+    number: '01',
+    image: '/services/1_service.png',
+    title: 'D&O & Management Liability',
     keyPoints: [
-      'Directors & Officers (D&O) Insurance',
-      'Employment Practices Liability (EPLI)',
-      'Fiduciary Liability Coverage',
-      'Errors & Omissions (E&O) Protection',
-      'Lender and Investor Requirement Compliance',
-      'Evolving Risk Profile Management'
+      'Directors & Officers (D&O) insurance for leadership.',
+      'Employment Practices Liability (EPLI) coverage.',
+      'Fiduciary Liability and E&O protection.',
+      'Lender and investor requirement compliance.',
     ],
-    color: 'from-blue-500 to-cyan-500',
   },
   {
-    icon: Briefcase,
+    number: '02',
+    image: '/services/2_service.png',
     title: 'Transactional & Deal-Related Insurance',
-    description: 'Supporting insurance needs around transactions, including R&W, Tail D&O for sellers and exiting management.',
-    fullDescription: 'Supporting insurance needs around transactions, including R&W, Tail D&O for sellers and exiting management, and transactional risk assessments. We work closely with deal teams, legal advisors, and markets to ensure coverage aligns with transaction dynamics.',
     keyPoints: [
-      'Representations & Warranties (R&W) Insurance',
-      'Tail D&O for Sellers and Exiting Management',
-      'Transactional Risk Assessments',
-      'Deal Timing Coordination',
-      'Legal and Financial Advisor Collaboration',
-      'Transaction-Aligned Coverage Structuring'
+      'Representations & Warranties (R&W) Insurance.',
+      'Tail D&O for sellers and exiting management.',
+      'Transactional risk assessments.',
+      'Transaction-aligned coverage structuring.',
     ],
-    color: 'from-purple-500 to-pink-500',
   },
   {
-    icon: AlertTriangle,
+    number: '03',
+    image: '/services/3_service.png',
     title: 'Restructuring & Distressed Situations',
-    description: 'Placing and maintaining coverage for companies navigating restructuring, financial stress, or Chapter 11 environments.',
-    fullDescription: 'Placing and maintaining coverage for companies navigating restructuring, financial stress, or Chapter 11 environments, where access to insurance can be limited and market engagement is critical.',
     keyPoints: [
-      'Chapter 11 Coverage Placement',
-      'Financial Stress Insurance Solutions',
-      'Restructuring Support',
-      'Limited Market Access Navigation',
-      'Critical Market Engagement',
-      'Coverage Continuity During Transition'
+      'D&O and liability for companies in transition.',
+      'Aligned with restructuring advisors and lenders.',
+      'Runoff, wind-down, and newco structuring.',
+      'Protecting leadership through uncertainty.',
     ],
-    color: 'from-emerald-500 to-teal-500',
   },
   {
-    icon: Puzzle,
-    title: 'Complex & Non-Standard Risk Placement',
-    description: 'Helping businesses operating outside standard underwriting frameworks obtain protection through creative structuring.',
-    fullDescription: 'Helping businesses operating outside standard underwriting frameworks obtain protection through creative structuring, persistence, and deep market relationships.',
+    number: '04',
+    image: '/services/4_service.png',
+    title: 'Complex & Non-Standard Risk',
     keyPoints: [
-      'Non-Standard Risk Analysis',
-      'Creative Coverage Structuring',
-      'Specialized Market Access',
-      'Persistent Advocacy',
-      'Alternative Placement Solutions',
-      'Deep Market Relationship Leverage'
+      'Non-standard risk analysis and advocacy.',
+      'Creative coverage structuring.',
+      'Specialized and alternative market access.',
+      'Deep market relationship leverage.',
     ],
-    color: 'from-amber-500 to-orange-500',
   },
   {
-    icon: Lightbulb,
+    number: '05',
+    image: '/services/5_service.png',
     title: 'Risk Strategy & Advisory Support',
-    description: 'Providing ongoing guidance around coverage structure and limits, market positioning and timing.',
-    fullDescription: 'Providing ongoing guidance around coverage structure and limits, market positioning and timing, lender and investor insurance requirements, and changes in risk profile as businesses evolve.',
     keyPoints: [
-      'Coverage Structure Optimization',
-      'Policy Limit Recommendations',
-      'Market Positioning Strategy',
-      'Timing Optimization',
-      'Lender & Investor Requirement Management',
-      'Risk Profile Evolution Monitoring'
+      'Coverage structure and limit optimization.',
+      'Market positioning and timing strategy.',
+      'Lender & investor requirement management.',
+      'Risk profile evolution monitoring.',
     ],
-    color: 'from-rose-500 to-red-500',
   },
   {
-    icon: HeadphonesIcon,
+    number: '06',
+    image: '/services/6_service.png',
     title: 'Claims Advocacy & Ongoing Support',
-    description: 'Remaining engaged beyond placement to support clients through claims, renewals, and changing circumstances.',
-    fullDescription: 'Remaining engaged beyond placement to support clients through claims, renewals, and changing circumstances. Advocacy continues when coverage is tested and support matters most.',
     keyPoints: [
-      'Claims Process Support',
-      'Renewal Management',
-      'Ongoing Risk Monitoring',
-      'Policy Change Coordination',
-      'Circumstance-Based Adjustments',
-      'Continuous Client Advocacy'
+      'Active support through the claims process.',
+      'Renewal management and renegotiation.',
+      'Ongoing risk and policy change monitoring.',
+      'Continuous client-side advocacy.',
     ],
-    color: 'from-indigo-500 to-blue-500',
-  },
-  {
-    icon: Network,
-    title: 'Market & Relationship Access',
-    description: 'Leveraging long-standing relationships with wholesale brokers, insurance carriers, and specialty markets.',
-    fullDescription: 'Leveraging long-standing relationships with wholesale brokers, insurance carriers, and specialty markets to create access, flexibility, and solutions that are not always visible through standard channels.',
-    keyPoints: [
-      'Wholesale Broker Networks',
-      'Direct Carrier Relationships',
-      'Specialty Market Access',
-      'Non-Standard Channel Solutions',
-      'Enhanced Flexibility Options',
-      'Exclusive Market Opportunities'
-    ],
-    color: 'from-teal-500 to-cyan-500',
-  },
-  {
-    icon: FileCheck,
-    title: 'Insurance Brokerage & Market Placement',
-    description: 'We work across the insurance markets to structure and place coverage in situations where insurance is complex or difficult to obtain.',
-    fullDescription: 'We work across the insurance markets to structure and place coverage in situations where insurance is complex, constrained, or difficult to obtain. Our role is to access the right markets, engage them thoughtfully, and advocate on behalf of our clients to secure workable protection.',
-    keyPoints: [
-      'Complex Coverage Structuring',
-      'Constrained Market Navigation',
-      'Strategic Market Selection',
-      'Thoughtful Market Engagement',
-      'Client Advocacy',
-      'Workable Protection Solutions'
-    ],
-    color: 'from-violet-500 to-purple-500',
   },
 ]
+
+const GAP_PX = 20
+const PEEK_PCT = 6
+
+function useCardCount() {
+  const [count, setCount] = useState(3)
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth
+      if (w < 640) setCount(1)
+      else if (w < 1024) setCount(2)
+      else setCount(3)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+
+  return count
+}
 
 export const Services: React.FC = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation()
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation({ threshold: 0.1 })
-  const [activeIndex, setActiveIndex] = useState(0)
 
-  const active = services[activeIndex]
-  const ActiveIcon = active.icon
+  const cardCount = useCardCount()
+  const [offset, setOffset] = useState(0)
+  const [sliding, setSliding] = useState(false)
+
+  const maxOffset = Math.max(0, services.length - cardCount)
+  const canPrev = offset > 0
+  const canNext = offset < maxOffset
+
+  useEffect(() => {
+    setOffset(prev => Math.min(prev, maxOffset))
+  }, [maxOffset])
+
+  const CARD_W = `calc((100% - ${PEEK_PCT}% - ${GAP_PX * cardCount}px) / ${cardCount})`
+  const STEP = `calc(${CARD_W} + ${GAP_PX}px)`
+
+  const slide = useCallback(
+    (dir: 'left' | 'right') => {
+      if (sliding) return
+      if (dir === 'left' && !canPrev) return
+      if (dir === 'right' && !canNext) return
+      setSliding(true)
+      setOffset(prev => (dir === 'right' ? prev + 1 : prev - 1))
+      setTimeout(() => setSliding(false), 520)
+    },
+    [sliding, canPrev, canNext]
+  )
 
   return (
-    <Section gradient id="services" className="bg-gold-50">
+    <Section gradient id="services" className="bg-white overflow-hidden">
+
+      {/* Header */}
       <div
         ref={headerRef}
-        className={`text-center mb-16 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
+        className={`text-center mb-14 scroll-animate ${headerVisible ? 'visible animate-fade-in-up' : ''}`}
       >
-        <h2 className="text-5xl md:text-6xl font-serif font-normal text-navy-900 mb-6">
-          Services
+        <div className="flex items-center justify-center gap-3 mb-5">
+          <span className="block h-px w-10 bg-[#B8975A]" />
+          <span className="text-[#B8975A] text-xs font-semibold tracking-[0.2em] uppercase">
+            What We Do
+          </span>
+          <span className="block h-px w-10 bg-[#B8975A]" />
+        </div>
+
+        <h2 className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
+          <span className="text-[#4A7FA5] font-light">Six Areas of Focus</span>
+          <br />
+          <span className="text-[#0F2545] font-semibold">One Strategic Advisor</span>
         </h2>
-        <p className="text-xl text-navy-600 max-w-3xl mx-auto font-light">
-          Comprehensive insurance solutions and market access for complex, constrained, and evolving risk profiles
+
+        <p className="text-[#4A5568] text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-light">
+          Accessing specialized markets and structuring solutions across D&O, transactional risk,
+          and complex placements; optimizing coverage, pricing, and execution.
         </p>
       </div>
 
+      {/* Carousel */}
       <div
         ref={contentRef}
         className={`scroll-animate ${contentVisible ? 'visible animate-fade-in-up' : ''}`}
       >
-        {/* Tab pills */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {services.map((service, index) => {
-            const Icon = service.icon
-            const isActive = index === activeIndex
-            return (
-              <button
-                key={service.title}
-                onClick={() => setActiveIndex(index)}
-                className={`
-                  inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium
-                  transition-all duration-300 border
-                  ${isActive
-                    ? 'bg-navy-900 text-white border-navy-900 shadow-lg shadow-navy-900/20 scale-105'
-                    : 'bg-white text-navy-700 border-gold-200 hover:border-gold-400 hover:bg-gold-50 hover:shadow-md'
-                  }
-                `}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-gold-400' : 'text-navy-400'}`} />
-                <span className="hidden sm:inline">{service.title}</span>
-                <span className="sm:hidden">{service.title.split(' ')[0]}</span>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Active service detail panel */}
-        <div
-          key={activeIndex}
-          className="relative bg-white rounded-3xl border border-gold-200 overflow-hidden shadow-sm animate-fade-in-up"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-5">
-            {/* Left: description */}
-            <div className="lg:col-span-3 p-8 md:p-12">
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${active.color} flex items-center justify-center flex-shrink-0`}>
-                  <ActiveIcon className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-serif font-normal text-navy-900">
-                  {active.title}
-                </h3>
-              </div>
-
-              <p className="text-navy-600 leading-relaxed text-lg mb-8 font-light">
-                {active.fullDescription}
-              </p>
-
-              <button
-                onClick={() => {
-                  const el = document.getElementById('contact')
-                  el?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="inline-flex items-center gap-2 text-navy-900 font-medium group"
-              >
-                Get in touch
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full" />
-              </button>
-            </div>
-
-            {/* Right: key points */}
-            <div className="lg:col-span-2 bg-navy-900 p-8 md:p-12 flex flex-col justify-center">
-              <h4 className="text-sm font-semibold text-gold-400 uppercase tracking-wider mb-6">
-                Key Solutions
-              </h4>
-              <div className="space-y-4">
-                {active.keyPoints.map((point, i) => (
-                  <div
-                    key={point}
-                    className="flex items-start gap-3 animate-fade-in-up"
-                    style={{ animationDelay: `${i * 80}ms` }}
-                  >
-                    <div className="w-6 h-6 rounded-full bg-gold-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3.5 h-3.5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-300 text-sm leading-relaxed">{point}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom navigation dots */}
-          <div className="flex justify-center gap-2 py-4 bg-gold-50/50 border-t border-gold-100">
-            {services.map((svc, index) => (
-              <button
-                key={svc.title}
-                onClick={() => setActiveIndex(index)}
-                aria-label={`Go to service ${index + 1}`}
-                className={`
-                  rounded-full transition-all duration-300
-                  ${index === activeIndex
-                    ? 'w-8 h-2 bg-navy-900'
-                    : 'w-2 h-2 bg-navy-300 hover:bg-navy-500'
-                  }
-                `}
+        <div className="overflow-hidden" style={{ paddingRight: `${PEEK_PCT}%` }}>
+          <div
+            className="flex"
+            style={{
+              gap: `${GAP_PX}px`,
+              transform: offset === 0 ? 'none' : `translateX(calc(${offset} * -1 * (${STEP})))`,
+              transition: sliding ? 'transform 480ms cubic-bezier(0.77, 0, 0.175, 1)' : 'none',
+              willChange: 'transform',
+            }}
+          >
+            {services.map((service) => (
+              <ServiceCard
+                key={service.number}
+                service={service}
+                cardWidth={CARD_W}
               />
             ))}
           </div>
         </div>
+
+        {/* Navigation */}
+        <div className="flex justify-center gap-3 mt-8">
+          <button
+            onClick={() => slide('left')}
+            disabled={!canPrev || sliding}
+            aria-label="Previous"
+            className={[
+              'w-11 h-11 rounded-full border flex items-center justify-center transition-colors duration-200',
+              canPrev && !sliding
+                ? 'border-[#0F2545]/30 text-[#0F2545] hover:bg-[#0F2545] hover:text-white hover:border-[#0F2545] active:scale-95'
+                : 'border-gray-200 text-gray-300 cursor-not-allowed',
+            ].join(' ')}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => slide('right')}
+            disabled={!canNext || sliding}
+            aria-label="Next"
+            className={[
+              'w-11 h-11 rounded-full flex items-center justify-center transition-colors duration-200',
+              canNext && !sliding
+                ? 'bg-[#0F2545] text-white hover:bg-[#1a3a6b] active:scale-95'
+                : 'bg-gray-200 text-gray-400 cursor-not-allowed',
+            ].join(' ')}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </Section>
+  )
+}
+
+/* ── Card sub-component ─────────────────────────────────────────── */
+
+interface CardProps {
+  service: typeof services[number]
+  cardWidth: string
+}
+
+// Pre-declared so Tailwind picks them up at build time (arbitrary delay values
+// must appear as literal strings somewhere in source for the JIT to emit them).
+const BULLET_DELAYS = ['delay-[80ms]', 'delay-[150ms]', 'delay-[220ms]', 'delay-[290ms]'] as const
+
+const EASE_OUT_QUART = 'ease-[cubic-bezier(0.33,1,0.68,1)]'
+
+function ServiceCard({ service, cardWidth }: Readonly<CardProps>) {
+  return (
+    <div
+      className="group relative flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-[#091830]"
+      style={{ width: cardWidth, height: '420px' }}
+    >
+      {/* Image — fills upper ~65% of the card, fades into the navy base */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[65%]">
+        <Image
+          src={service.image}
+          alt={service.title}
+          fill
+          sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent_0%,#091830_100%)]" />
+      </div>
+
+      {/* DEFAULT face — number + title */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-between p-7">
+        <span className="select-none text-6xl font-bold leading-none text-white/[0.18]">
+          {service.number}
+        </span>
+        <h3 className="text-lg font-semibold leading-snug text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+          {service.title}
+        </h3>
+      </div>
+
+      {/* HOVER face — slides up from below on hover */}
+      <div
+        className={[
+          'absolute inset-0 z-20 flex translate-y-full flex-col rounded-[inherit] p-7 pt-6 opacity-0',
+          'bg-[linear-gradient(160deg,#1c3d6e_0%,#0e2244_55%,#091830_100%)]',
+          'shadow-[inset_0_0_0_2px_rgba(120,80,220,0.8)]',
+          'transition-all duration-[380ms]',
+          EASE_OUT_QUART,
+          'group-hover:translate-y-0 group-hover:opacity-100',
+        ].join(' ')}
+      >
+        {/* Faint image wash on the hover face */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] opacity-20">
+          <Image
+            src={service.image}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+            className="object-cover object-center"
+          />
+        </div>
+
+        <span className="relative z-10 mb-2 select-none text-5xl font-bold leading-none text-white/[0.18]">
+          {service.number}
+        </span>
+
+        <h3 className="relative z-10 mb-5 text-xl font-bold leading-snug text-white">
+          {service.title}
+        </h3>
+
+        <ul className="relative z-10 space-y-3">
+          {service.keyPoints.map((point, pi) => (
+            <li
+              key={point}
+              className={[
+                'flex translate-y-2.5 items-start gap-2.5 opacity-0',
+                'transition-all duration-300',
+                EASE_OUT_QUART,
+                BULLET_DELAYS[pi] ?? BULLET_DELAYS.at(-1),
+                'group-hover:translate-y-0 group-hover:opacity-100',
+              ].join(' ')}
+            >
+              <CheckCircle2
+                className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#8C5AF0]/95"
+                strokeWidth={2}
+              />
+              <span className="text-sm leading-relaxed text-white/75">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   )
 }

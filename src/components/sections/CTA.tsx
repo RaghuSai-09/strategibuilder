@@ -1,10 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/Button'
+import Image from 'next/image'
 import { Mail, Phone, MapPin, CheckCircle2, Loader2 } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-import Image from 'next/image'
 
 interface FormData {
   name: string
@@ -13,6 +12,12 @@ interface FormData {
   company: string
   message: string
 }
+
+const labelGradient =
+  'bg-[linear-gradient(-17deg,#1C3E57_4%,#24445C_96%)] bg-clip-text text-transparent'
+
+const inputClass =
+  'w-full rounded-lg border-[0.6px] border-[#C9A96E] bg-white px-4 py-3 text-[16px] leading-[1.4] text-[#1C3E57] placeholder:text-[#7E7D79] focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40'
 
 export const Cta: React.FC = () => {
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation()
@@ -26,7 +31,9 @@ export const Cta: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
@@ -36,102 +43,58 @@ export const Cta: React.FC = () => {
     setIsSubmitting(true)
     setSubmitStatus('idle')
 
-    // Create mailto link with form data
     const subject = encodeURIComponent(`New Inquiry from ${formData.name}`)
     const body = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCompany: ${formData.company}\n\nMessage:\n${formData.message}`
     )
-    
-    // Open email client
+
     globalThis.location.href = `mailto:marianne@strategibuilder.com?subject=${subject}&body=${body}`
-    
+
     setSubmitStatus('success')
     setFormData({ name: '', email: '', phone: '', company: '', message: '' })
     setIsSubmitting(false)
   }
 
   return (
-    <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gold-50 border-b-4 border-gold-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
-      <div className="max-w-7xl mx-auto">
-        <div 
+    <section id="contact" className="relative overflow-hidden bg-white py-24 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div
           ref={contentRef}
-          className={`text-center mb-16 scroll-animate ${contentVisible ? 'visible animate-fade-in-up' : ''}`}
+          className={`mx-auto mb-12 flex max-w-[870px] flex-col items-center text-center scroll-animate ${contentVisible ? 'visible animate-fade-in-up' : ''}`}
         >
-          <h2 className="text-5xl md:text-6xl font-serif font-normal text-navy-900 mb-6">
-            Let&apos;s Discuss Your Coverage Needs
+          {/* Eyebrow */}
+          <div className="mb-4 flex items-center gap-[14px]">
+            <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#AE9059]" />
+            <span className="text-[16px] font-semibold uppercase tracking-[3.2px] text-[#C9A96E]">
+              Contact Us
+            </span>
+            <span className="block h-px w-10 bg-gradient-to-l from-transparent to-[#AE9059]" />
+          </div>
+
+          <h2 className="mb-4 text-[40px] font-bold leading-[1.2] lg:text-[42px]">
+            <span className="text-[#2C4E6E]">Let&apos;s Discuss </span>
+            <span className="bg-[linear-gradient(-20deg,#092539_4%,#0D2C44_96%)] bg-clip-text text-transparent">
+              Your Coverage Needs
+            </span>
           </h2>
-          <p className="text-xl text-navy-600 max-w-2xl mx-auto font-light">
-            Get in touch with us and discover how we can help protect your business with tailored insurance solutions
+
+          <p className="max-w-[536px] text-[15px] leading-[26.25px] text-[#4A4A4A]">
+            Get in touch with us and discover how we can help protect your business with tailored
+            insurance solutions
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Side - Image & Info */}
-          <div className="space-y-8">
-            {/* Image */}
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="/image.png"
-                alt="Business strategy consultation"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-900/70 to-transparent" />
-              <div className="absolute bottom-8 left-8 text-white">
-                <h3 className="text-2xl font-serif font-normal mb-2">Expert Insurance Solutions</h3>
-                <p className="text-white/90">Navigating complex risk through trusted partnerships</p>
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-serif text-navy-900 mb-6">Contact Information</h3>
-              
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-navy-800 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-gold-400" />
-                </div>
-                <div>
-                  <p className="font-semibold text-navy-900">Email</p>
-                  <a href="mailto:marianne@strategibuilder.com" className="text-navy-600 hover:text-gold-600 transition-colors">
-                    marianne@strategibuilder.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-navy-800 flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-gold-400" />
-                </div>
-                <div>
-                  <p className="font-semibold text-navy-900">Phone</p>
-                  <a href="tel:+19179435509" className="text-navy-600 hover:text-gold-600 transition-colors">
-                    (917) 943-5509
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-navy-800 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-gold-400" />
-                </div>
-                <div>
-                  <p className="font-semibold text-navy-900">Location</p>
-                  <p className="text-navy-600">2004 SW 13th Street | Miami, FL 33145 | USA</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Side - Form */}
-          <div className="bg-gold-50/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gold-200">
-            <h3 className="text-2xl font-serif text-navy-900 mb-6">Send Us a Message</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="mx-auto grid max-w-[1320px] gap-10 lg:grid-cols-[666px_minmax(0,1fr)] lg:items-start">
+          {/* ── Form ─────────────────────────────────────────────── */}
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-2xl border border-black/10 bg-[#FFF8EC] p-8 shadow-[0_4px_13.95px_rgba(0,0,0,0.05)]"
+          >
+            <div className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-navy-700 mb-2">
-                  Full Name *
+                <label htmlFor="name" className={`mb-1.5 block text-[20px] font-medium ${labelGradient}`}>
+                  Name*
                 </label>
                 <input
                   type="text"
@@ -140,30 +103,14 @@ export const Cta: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-navy-200 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20 transition-colors bg-white"
+                  className={inputClass}
                   placeholder="John Doe"
                 />
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-navy-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-navy-200 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20 transition-colors bg-white"
-                    placeholder="john@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-navy-700 mb-2">
+                  <label htmlFor="phone" className={`mb-1.5 block text-[20px] font-medium ${labelGradient}`}>
                     Phone
                   </label>
                   <input
@@ -172,15 +119,31 @@ export const Cta: React.FC = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-navy-200 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20 transition-colors bg-white"
+                    className={inputClass}
                     placeholder="(555) 123-4567"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className={`mb-1.5 block text-[20px] font-medium ${labelGradient}`}>
+                    Email*
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                    placeholder="john@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-semibold text-navy-700 mb-2">
-                  Company
+                <label htmlFor="company" className={`mb-1.5 block text-[20px] font-medium ${labelGradient}`}>
+                  Company Name*
                 </label>
                 <input
                   type="text"
@@ -188,14 +151,15 @@ export const Cta: React.FC = () => {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-navy-200 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20 transition-colors bg-white"
-                  placeholder="Your Company Name"
+                  required
+                  className={inputClass}
+                  placeholder="Your Company"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-navy-700 mb-2">
-                  Message *
+                <label htmlFor="message" className={`mb-1.5 block text-[20px] font-medium ${labelGradient}`}>
+                  Message*
                 </label>
                 <textarea
                   id="message"
@@ -203,45 +167,113 @@ export const Cta: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-navy-200 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20 transition-colors bg-white resize-none"
+                  rows={6}
+                  className={`${inputClass} resize-none`}
                   placeholder="Tell us about your project and how we can help..."
                 />
               </div>
 
               {submitStatus === 'success' && (
-                <div className="flex items-center gap-2 text-green-700 bg-green-50 px-4 py-3 rounded-lg">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>Your email client will open to send the message!</span>
+                <div className="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-3 text-green-700">
+                  <CheckCircle2 className="h-5 w-5" />
+                  <span>Your email client will open to send the message.</span>
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="text-red-700 bg-red-50 px-4 py-3 rounded-lg">
+                <div className="rounded-lg bg-red-50 px-4 py-3 text-red-700">
                   Something went wrong. Please try again or email us directly.
                 </div>
               )}
 
-              <Button
+              <button
                 type="submit"
-                size="lg"
                 disabled={isSubmitting}
-                className="w-full"
-                showArrow={!isSubmitting}
+                className="flex w-full items-center justify-center gap-2 rounded bg-[linear-gradient(-36deg,#1C3E57_4%,#24445C_96%)] px-6 py-4 text-[24px] text-white transition-opacity hover:opacity-90 disabled:opacity-60"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                     Sending...
                   </>
                 ) : (
                   'Send Message'
                 )}
-              </Button>
-            </form>
+              </button>
+            </div>
+          </form>
+
+          {/* ── Image + contact info ─────────────────────────────── */}
+          <div className="flex flex-col gap-8">
+            {/* Image */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl">
+              <Image
+                src="/image.png"
+                alt="Business strategy consultation"
+                fill
+                sizes="(max-width: 1024px) 100vw, 640px"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(13,44,68,0.85)_100%)]" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <p className="text-[22px] font-semibold leading-tight">
+                  Expert Insurance Solutions
+                </p>
+                <p className="mt-1 text-[14px] text-white/85">
+                  Navigating complex risk through trusted partnerships
+                </p>
+              </div>
+            </div>
+
+            {/* Contact rows */}
+            <div className="flex flex-col gap-4">
+              <ContactRow
+                icon={<Phone className="h-5 w-5" strokeWidth={2.5} />}
+                text="(917) 943-5509"
+                href="tel:+19179435509"
+              />
+              <ContactRow
+                icon={<Mail className="h-5 w-5" strokeWidth={2.5} />}
+                text="marianne@strategibuilder.com"
+                href="mailto:marianne@strategibuilder.com"
+              />
+              <ContactRow
+                icon={<MapPin className="h-5 w-5" strokeWidth={2.5} />}
+                text="2004 SW 13th Street, Miami, FL 33145"
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
   )
+}
+
+interface ContactRowProps {
+  icon: React.ReactNode
+  text: string
+  href?: string
+}
+
+function ContactRow({ icon, text, href }: Readonly<ContactRowProps>) {
+  const content = (
+    <>
+      <div className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center rounded-md bg-[linear-gradient(-31deg,#092539_4%,#0D2C44_96%)] text-white">
+        {icon}
+      </div>
+      <span className="bg-[linear-gradient(-31deg,#092539_4%,#0D2C44_96%)] bg-clip-text text-[20px] text-transparent">
+        {text}
+      </span>
+    </>
+  )
+
+  if (href) {
+    return (
+      <a href={href} className="flex items-center gap-4 transition-opacity hover:opacity-75">
+        {content}
+      </a>
+    )
+  }
+  return <div className="flex items-center gap-4">{content}</div>
 }

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 // Temporary in-memory storage (replace with database in production)
 const applicationsStore = new Map<string, any>();
 

@@ -138,7 +138,7 @@ export default function AuthPage() {
 
           {/* Main Content */}
           <div className="space-y-6">
-            <h1 className="text-5xl font-serif font-normal leading-tight">
+            <h1 className="text-5xl font-normal leading-tight">
               {isLogin ? 'Welcome Back' : 'Start Your Journey'}
             </h1>
             <p className="text-xl text-white/90 font-light max-w-md">
@@ -225,7 +225,7 @@ export default function AuthPage() {
 
             {/* Form Header */}
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-serif font-normal text-navy-900 mb-2">
+              <h2 className="text-3xl font-normal text-navy-900 mb-2">
                 {isLogin ? 'Sign In' : 'Create Account'}
               </h2>
               <p className="text-navy-600 font-light">

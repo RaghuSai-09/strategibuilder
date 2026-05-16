@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import fs from 'fs';
+
+export const dynamic = 'force-dynamic';
 import path from 'path';
 import crypto from 'crypto';
 
